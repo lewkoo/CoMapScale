@@ -1,0 +1,53 @@
+#ifndef NETWORKCLIENT_H
+#define NETWORKCLIENT_H
+
+#include <QTcpSocket>
+#include <QList>
+#include "peerstate.h"
+
+class QNetworkSession;
+
+class NetworkClient: public QObject
+{
+    Q_OBJECT
+
+public:
+    NetworkClient();
+    ~NetworkClient();
+
+    void connectToServer();
+    void disconnectFromServer();
+    void sendPosition(double latitude, double longitude, double topLeftLat, double topLeftLong, double botRightLat, double botRightLong, qreal scale);
+    void setPeerMarker(QString peerId, MapMarker* peerMarker);
+
+private:
+    void parseMessage(QString message);
+    void sendMessage(QString text);
+    void removePeer(QString id);
+    void addPeer(QString id, QGeoCoordinate coordinate);
+    void updatePeer(QString id, QGeoCoordinate coordinate);
+
+signals:
+    void requestRepaint();
+    void newPeerAdded(QString peerId, QGeoCoordinate coordinate);
+    void peerPositionChanged();
+    void peerDisconnected(MapMarker* marker);
+    void newVwAdded(QString peerId, QGeoCoordinate coordinate);
+    void newObjectAdded(MapMarker::MarkerType markerType, QGeoCoordinate coordinate, QString text);
+    void wedgeStatusChanged(bool isEnabled, bool objWedgeEnabled);
+
+private slots:
+    void displayError(QAbstractSocket::SocketError socketError);
+    void sessionOpened();
+    void serverFound();
+    void inDataReady();
+
+private:
+    QTcpSocket tcpSocket;
+    QNetworkSession* networkSession;
+    quint16 blockSize;
+    QList<PeerState> peerList;
+    QString clientId;
+};
+
+#endif // NETWORKCLIENT_H

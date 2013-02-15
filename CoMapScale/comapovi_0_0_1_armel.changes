@@ -1,0 +1,22 @@
+Format: 1.8
+Date: Fri, 29 Apr 2011 10:23:59 -0500
+Source: comapovi
+Binary: comapovi
+Architecture: armel
+Version: 0.0.1
+Distribution: unstable
+Urgency: low
+Maintainer: root <root@unknown>
+Changed-By: root <root@unknown>
+Description: 
+ comapovi   - <insert up to 60 chars description>
+Changes: 
+ comapovi (0.0.1) unstable; urgency=low
+ .
+   * Initial Release.
+Checksums-Sha1: 
+ fa3a26e20a2173dc3fe7ff5fd67c3bb8ec555ec5 875212 comapovi_0.0.1_armel.deb
+Checksums-Sha256: 
+ 26c65d3efd2bc902f27f04d577bddf1cb4c63e44856687c607d925c0cbc33b97 875212 comapovi_0.0.1_armel.deb
+Files: 
+ 700a7131101f521762ab32a4871dd431 875212 user/hidden optional comapovi_0.0.1_armel.deb

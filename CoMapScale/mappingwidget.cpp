@@ -1,0 +1,148 @@
+#include <QGraphicsScene>
+//#include <QGeoCoordinate>
+#include <qgeocoordinate.h>
+#include <QGraphicsView>
+#include "global.h"
+#include "mappingwidget.h"
+#include "geomap.h"
+#include "zoombuttonitem.h"
+#include "mapoverlay.h"
+#include <qgeoboundingbox.h>
+#include "mapmarker.h"
+
+QTM_USE_NAMESPACE
+
+MappingWidget::MappingWidget(QWidget *parent) :
+    QWidget(parent)
+{
+    this->map = NULL;
+    this->view = NULL;
+
+    connect(&client, SIGNAL(requestRepaint()), this, SLOT(repaint()));
+    connect(&client, SIGNAL(newPeerAdded(QString, QGeoCoordinate)), this, SLOT(addNewPeer(QString, QGeoCoordinate)));
+    connect(&client, SIGNAL(peerPositionChanged()), this, SLOT(updatePeerPositions()));
+    connect(&client, SIGNAL(peerDisconnected(MapMarker*)), this, SLOT(removeMapMarker(MapMarker*)));
+    connect(&client, SIGNAL(newVwAdded(QString,QGeoCoordinate)), this, SLOT(addNewVw(QString,QGeoCoordinate)));
+    connect(&client, SIGNAL(newObjectAdded(MapMarker::MarkerType,QGeoCoordinate, QString)), this, SLOT(addNewObject(MapMarker::MarkerType,QGeoCoordinate, QString)));
+    connect(&client, SIGNAL(wedgeStatusChanged(bool, bool)), this, SLOT(setWedgeEnabled(bool, bool)));
+}
+
+MappingWidget::~MappingWidget()
+{
+    if (map != NULL)
+        delete map;
+
+    if (view != NULL)
+        delete view;
+}
+
+void MappingWidget::closeEvent(QCloseEvent * event)
+{
+    event->accept();
+}
+
+void MappingWidget::initialize(QGeoMappingManager *mapManager)
+{
+    QRect viewportRect(0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+    map = new GeoMap (mapManager, this);
+
+    QGraphicsScene* scene = new QGraphicsScene;
+    scene->addItem(map);
+
+    //QList<QGraphicsGeoMap::ConnectivityMode> list = map->supportedConnectivityModes();
+    //map->setConnectivityMode(QGraphicsGeoMap::OfflineMode); //Offline mode is not supported
+    map->resize(viewportRect.width(), viewportRect.height());
+    scene->setSceneRect(viewportRect);
+    map->setCenter(QGeoCoordinate(48.854716, 2.346611));
+    map->setZoomLevel(12);
+
+    MapOverlay* overlay = new MapOverlay(map);
+    map->addMapOverlay(overlay);
+
+    view = new QGraphicsView(scene, this);
+    view->resize(viewportRect.width(), viewportRect.height());
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    zoomButton = new ZoomButtonItem(map);
+    zoomButton->setRect(width() - 55, height()/2.0 - 50, 50, 100);
+    scene->addItem(zoomButton);
+
+    view->setVisible (true);
+    view->setInteractive (true);
+
+    //Connect to network server
+    client.connectToServer();
+
+    //Test
+    //addMapMarker(MapMarker::PoiType, QGeoCoordinate(-27.5769, 153.1));
+    //addMapMarker(MapMarker::AnchorType, QGeoCoordinate(-27.5771, 153.3));
+}
+
+void MappingWidget::mapPositionChanged()
+{
+    map->updateWedges();
+
+    QGeoBoundingBox viewportBox = map->viewport();
+    QGeoCoordinate position = map->center();
+    QGeoCoordinate topLeft = viewportBox.topLeft();
+    QGeoCoordinate bottomRight = viewportBox.bottomRight();
+    qreal scale = map->zoomLevel();
+
+    client.sendPosition(position.latitude(), position.longitude(), topLeft.latitude(), topLeft.longitude(), bottomRight.latitude(), bottomRight.longitude(), scale);
+}
+
+MapMarker* MappingWidget::addMapMarker(MapMarker::MarkerType markerType, QGeoCoordinate location)
+{
+    return addMapMarker(markerType, location, "");
+}
+
+MapMarker* MappingWidget::addMapMarker(MapMarker::MarkerType markerType, QGeoCoordinate location, QString text)
+{
+    MapMarker* marker = new MapMarker(markerType, text);
+    marker->setCoordinate(location);
+    map->addMapObject (marker);
+    map->updateWedges();
+
+    //Map takes ownership of marker, but the peer state needs a handle for position updates.
+    return marker;
+}
+
+void MappingWidget::removeMapMarker(MapMarker *marker)
+{
+    map->removeMapObject(marker);
+    map->updateWedges();
+}
+
+void MappingWidget::addNewPeer(QString peerId, QGeoCoordinate coordinate)
+{
+    MapMarker::MarkerType markerType = PeerState::getMarkerTypeById(peerId);
+    MapMarker* peerMarker = addMapMarker(markerType, coordinate);
+    client.setPeerMarker(peerId, peerMarker);
+
+    map->updateWedges();
+}
+
+void MappingWidget::updatePeerPositions()
+{
+    map->updateWedges();
+}
+
+void MappingWidget::addNewVw(QString peerId, QGeoCoordinate coordinate)
+{
+    //int id = peerId.toInt();
+    MapMarker::MarkerType markerType = PeerState::getVwMarkerTypeById(peerId);
+
+    MapMarker* vwMarker = addMapMarker(markerType, coordinate); //TODO: save vwMarker in data structure for easier access than through map widget's object list
+    map->updateWedges();
+}
+
+void MappingWidget::addNewObject(MapMarker::MarkerType markerType, QGeoCoordinate coordinate, QString text)
+{
+    addMapMarker(markerType, coordinate, text);
+}
+
+void MappingWidget::setWedgeEnabled(bool isEnabled, bool objWedgeEnabled)
+{
+    map->setWedgeEnabled(isEnabled, objWedgeEnabled);
+}
