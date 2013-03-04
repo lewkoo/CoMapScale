@@ -22,13 +22,17 @@ Wedge::Wedge(QColor colour)
     init();
 }
 
+void Wedge::setWedgeIcon(MapMarker* marker){
+    wedgeIcon = marker;
+}
+
 void Wedge::init()
 {
     lineBase = QLine(0, 0, 0, 0);
     lineLeg1 = QLine(0, 0, 0, 0);
     lineLeg2 = QLine(0, 0, 0, 0);
 
-    wedgeIcon = new MapMarker(MapMarker::WedgePeerBlueType); //TODO:: hard coded for now
+    wedgeIcon = NULL;
     //wedgeIcon->setMarkerType(MapMarker::WedgePeerBlueType);
 
     colour.setAlpha(200);
@@ -43,24 +47,27 @@ void Wedge::init()
 
 void Wedge::paint(QPainter *painter)
 {
-    int x = (lineBase.x2() + lineBase.x1())/2;
-    int y = (lineBase.y2() + lineBase.y1())/2;
-
-    int distance = sqrt( (pow(lineBase.x2()-lineBase.x1(),2)) + ( pow ( lineBase.y2()-lineBase.y1(),2)) );
-
-
-
-    x = x-20;
-    y = y-20;
-
     painter->setPen(pen);
     painter->drawLine(lineBase);
     painter->drawLine(lineLeg1);
     painter->drawLine(lineLeg2);
 
+    if(wedgeIcon != NULL){
+    int x = (lineBase.x2() + lineBase.x1())/2;
+    int y = (lineBase.y2() + lineBase.y1())/2;
+
+    int distance = sqrt( (pow(lineBase.x2()-lineBase.x1(),2)) + ( pow ( lineBase.y2()-lineBase.y1(),2)) );
+
+    x = x-20;
+    y = y-20;
+
     if(distance >= wedgeIcon->pixmap().width()){
     painter->drawPixmap(x,y,wedgeIcon->pixmap());
     }
+    }
+
+
+
 }
 
 void Wedge::setWedge(QPoint screenPos, QRect viewport)

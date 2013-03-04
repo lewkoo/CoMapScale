@@ -14,5 +14,20 @@
         <file alias="peerRed">Icons/peerRed.png</file>
         <file alias="peerBlue">Icons/peerBlue.png</file>
         <file alias="wedgePeerBlue">Icons/wedgePeerBlue.png</file>
+        <file alias="wedgePeerBlueFill">Icons/wedgePeerBlueFIll.png</file>
+        <file alias="wedgePeerOrange">Icons/wedgePeerOrange.png</file>
+        <file alias="wedgePeerOrangeFill">Icons/wedgePeerOrangeFill.png</file>
+        <file alias="wedgePeerPurple">Icons/wedgePeerPurple.png</file>
+        <file alias="wedgePeerPurpleFill">Icons/wedgePeerPurpleFill.png</file>
+        <file alias="wedgePeerRed">Icons/wedgePeerRed.png</file>
+        <file alias="wedgePeerRedFill">Icons/wedgePeerRedFill.png</file>
+        <file alias="wedgeRestaurant">Icons/wedgeRestaurant.png</file>
+        <file alias="wedgeHotel">Icons/wedgeHotel.png</file>
+        <file alias="wedgePoi">Icons/wedgePoi.png</file>
+        <file alias="wedgeAnchorRed">Icons/wedgeAnchorRed.png</file>
+        <file alias="wedgeAnchorPurple">Icons/wedgeAnchorPurple.png</file>
+        <file alias="wedgeAnchorOrange">Icons/wedgeAnchorOrange.png</file>
+        <file alias="wedgeAnchorBlue">Icons/wedgeAnchorBlue.png</file>
+        <file alias="wedgeAnchor">Icons/wedgeAnchor.png</file>
     </qresource>
 </RCC>

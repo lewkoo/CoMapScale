@@ -10,6 +10,7 @@
 class QPainter;
 class MapMarker;
 
+
 class Wedge
 {
 
@@ -26,6 +27,7 @@ public:
     void init();
     //Wedge(QPoint screenPos, QColor colour, QRect viewport);
     void setWedge(QPoint screenPos, QRect viewport);
+    void setWedgeIcon(MapMarker* marker);
     void updatePotential();
     void resetPotentialDelta();
     void detectCollision(Wedge* otherWedge);

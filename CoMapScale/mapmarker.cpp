@@ -20,6 +20,7 @@ MapMarker::MapMarker(MapMarker::MarkerType type, QString text)
             this->type == MapMarker::HotelType)
     {
         wedge = new Wedge(getWedgeColour());
+        setWedgeIcon(type);
     }
     else
     {
@@ -35,11 +36,74 @@ MapMarker::~MapMarker()
     }
 }
 
+void MapMarker::setWedgeIcon(MapMarker::MarkerType type){
+    MapMarker* marker = NULL;
+
+
+    if (type == MapMarker::AnchorType)
+    {
+        marker = new MapMarker(MapMarker::WedgeAnchorType);
+    }
+    else if (type == MapMarker::AnchorOrangeType)
+    {
+         marker = new MapMarker(MapMarker::WedgeAnchorOrangeType);
+    }
+    else if (type == MapMarker::AnchorPurpleType)
+    {
+         marker = new MapMarker(MapMarker::WedgeAnchorPurpleType);
+    }
+    else if (type == MapMarker::AnchorRedType)
+    {
+         marker = new MapMarker(MapMarker::WedgeAnchorRedType);
+    }
+    else if (type == MapMarker::AnchorBlueType)
+    {
+         marker = new MapMarker(MapMarker::WedgeAnchorBlueType);
+    }
+    else if (type == MapMarker::PeerType)
+    {
+        marker = new MapMarker(MapMarker::WedgePeerRedType);
+    }
+    else if (type == MapMarker::PeerOrangeType)
+    {
+         marker = new MapMarker(MapMarker::WedgePeerOrangeType);
+    }
+    else if (type == MapMarker::PeerPurpleType)
+    {
+         marker = new MapMarker(MapMarker::WedgePeerPurpleType);
+    }
+    else if (type == MapMarker::PeerRedType)
+    {
+         marker = new MapMarker(MapMarker::WedgePeerRedType);
+    }
+    else if (type == MapMarker::PeerBlueType)
+    {
+         marker = new MapMarker(MapMarker::WedgePeerBlueType);
+    }
+    else if (type == MapMarker::PoiType)
+    {
+         marker = new MapMarker(MapMarker::WedgePoiType);
+    }
+//    else if (type == MapMarker::HotelType)
+//    {
+//        colour = QColor("green");
+//    }
+//    else if (type == MapMarker::RestaurantType)
+//    {
+//        colour = QColor("cyan");
+//    }
+
+    if(marker != NULL){
+    wedge->setWedgeIcon(marker);
+    }
+}
+
 void MapMarker::setWedge(QPoint screenPos, QRect viewport)
 {
     if (wedge != NULL)
     {
         wedge->setWedge(screenPos, viewport);
+        setWedgeIcon(this->type);
     }
 }
 
@@ -189,9 +253,75 @@ void MapMarker::setMarkerType (MapMarker::MarkerType type)
         this->setZValue(10);
         break;
     case WedgePeerBlueType:
-        filename = ":/Icons/wedgePeerBlue";
+        filename = ":/Icons/wedgePeerBlueFill";
         offset = QPoint(-40,-80);
-        scale = 50;
+        scale = 40;
+        this->setZValue(10);
+        break;
+    case WedgePeerRedType:
+        filename = ":/Icons/wedgePeerRedFill";
+        offset = QPoint(-40,-80);
+        scale = 40;
+        this->setZValue(10);
+        break;
+    case WedgePeerPurpleType:
+        filename = ":/Icons/wedgePeerPurpleFill";
+        offset = QPoint(-40,-80);
+        scale = 40;
+        this->setZValue(10);
+        break;
+    case WedgePeerOrangeType:
+        filename = ":/Icons/wedgePeerOrangeFill";
+        offset = QPoint(-40,-80);
+        scale = 40;
+        this->setZValue(10);
+        break;
+    case WedgeAnchorRedType:
+        filename = ":/Icons/wedgeAnchorRed";
+        offset = QPoint(-40,-80);
+        scale = 40;
+        this->setZValue(10);
+        break;
+    case WedgeAnchorBlueType:
+        filename = ":/Icons/wedgeAnchorBlue";
+        offset = QPoint(-40,-80);
+        scale = 40;
+        this->setZValue(10);
+        break;
+    case WedgeAnchorOrangeType:
+        filename = ":/Icons/wedgeAnchorOrange";
+        offset = QPoint(-40,-80);
+        scale = 40;
+        this->setZValue(10);
+        break;
+    case WedgeAnchorPurpleType:
+        filename = ":/Icons/wedgeAnchorPurple";
+        offset = QPoint(-40,-80);
+        scale = 40;
+        this->setZValue(10);
+        break;
+    case WedgeAnchorType:
+        filename = ":/Icons/wedgeAnchor";
+        offset = QPoint(-40,-80);
+        scale = 40;
+        this->setZValue(10);
+        break;
+    case WedgePoiType:
+        filename = ":/Icons/wedgePoi";
+        offset = QPoint(-40,-80);
+        scale = 40;
+        this->setZValue(10);
+        break;
+    case WedgeHotelType:
+        filename = ":/Icons/wedgeHotel";
+        offset = QPoint(-40,-80);
+        scale = 40;
+        this->setZValue(10);
+        break;
+    case WedgeRestaurantType:
+        filename = ":/Icons/wedgeRestaurant";
+        offset = QPoint(-40,-80);
+        scale = 40;
         this->setZValue(10);
         break;
     }

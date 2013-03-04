@@ -28,7 +28,18 @@ public:
         AnchorBlueType,
         HotelType,
         RestaurantType,
-        WedgePeerBlueType //A wedge icon
+        WedgePeerBlueType, //A wedge icon
+        WedgePeerRedType,
+        WedgePeerOrangeType,
+        WedgePeerPurpleType,
+        WedgeAnchorRedType,
+        WedgeAnchorPurpleType,
+        WedgeAnchorOrangeType,
+        WedgeAnchorBlueType,
+        WedgeAnchorType,
+        WedgeHotelType,
+        WedgeRestaurantType,
+        WedgePoiType
     };
 
     explicit MapMarker(MapMarker::MarkerType type, QString text = QString(""));
@@ -42,6 +53,7 @@ public:
 
 private:
     void setMarkerType (MapMarker::MarkerType type);
+    void setWedgeIcon(MapMarker::MarkerType type);
     QColor getWedgeColour ();
 
 private:
