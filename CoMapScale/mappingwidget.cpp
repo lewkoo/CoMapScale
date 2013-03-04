@@ -75,8 +75,9 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
     client.connectToServer();
 
     //Test
-    //addMapMarker(MapMarker::PoiType, QGeoCoordinate(-27.5769, 153.1));
-    //addMapMarker(MapMarker::AnchorType, QGeoCoordinate(-27.5771, 153.3));
+    addMapMarker(MapMarker::WedgePeerBlueType, QGeoCoordinate(48.854885, 2.346611));
+    addMapMarker(MapMarker::PoiType, QGeoCoordinate(48.954885, 2.34661));
+    addMapMarker(MapMarker::AnchorType, QGeoCoordinate(48.754885, 2.34661));
 }
 
 void MappingWidget::mapPositionChanged()

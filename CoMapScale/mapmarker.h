@@ -7,6 +7,8 @@
 
 QTM_USE_NAMESPACE
 
+class Wedge;
+
 class MapMarker : public QGeoMapPixmapObject
 {
     //Q_OBJECT
@@ -25,7 +27,8 @@ public:
         AnchorRedType,
         AnchorBlueType,
         HotelType,
-        RestaurantType
+        RestaurantType,
+        WedgePeerBlueType //A wedge icon
     };
 
     explicit MapMarker(MapMarker::MarkerType type, QString text = QString(""));

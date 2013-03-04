@@ -188,6 +188,12 @@ void MapMarker::setMarkerType (MapMarker::MarkerType type)
         scale = 40;
         this->setZValue(10);
         break;
+    case WedgePeerBlueType:
+        filename = ":/Icons/wedgePeerBlue";
+        offset = QPoint(-40,-80);
+        scale = 50;
+        this->setZValue(10);
+        break;
     }
 
     //Correct the offset

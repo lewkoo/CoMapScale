@@ -13,5 +13,6 @@
         <file alias="anchorBlue">Icons/anchorBlue.png</file>
         <file alias="peerRed">Icons/peerRed.png</file>
         <file alias="peerBlue">Icons/peerBlue.png</file>
+        <file alias="wedgePeerBlue">Icons/wedgePeerBlue.png</file>
     </qresource>
 </RCC>

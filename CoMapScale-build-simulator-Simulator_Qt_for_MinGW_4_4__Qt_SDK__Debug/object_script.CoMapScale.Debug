@@ -1,0 +1,16 @@
+INPUT(
+./debug\main.o
+./debug\geomap.o
+./debug\mappingwidget.o
+./debug\zoombuttonitem.o
+./debug\mapmarker.o
+./debug\mapoverlay.o
+./debug\wedge.o
+./debug\utilities.o
+./debug\networkclient.o
+./debug\peerstate.o
+./debug\moc_geomap.o
+./debug\moc_mappingwidget.o
+./debug\moc_networkclient.o
+./debug\qrc_Icons.o
+);

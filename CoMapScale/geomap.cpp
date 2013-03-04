@@ -98,7 +98,7 @@ void GeoMap::updateWedges()
                 MapMarker::MarkerType markerType = pixmapObject->getMarkerType();
 
                 //Only add wedges for objects if objWedge is enabled
-                if (objWedgeEnabled || !(markerType == MapMarker::RestaurantType || markerType == MapMarker::HotelType))
+                if (objWedgeEnabled || !(markerType == MapMarker::RestaurantType || markerType == MapMarker::HotelType) && (!(markerType == MapMarker::WedgePeerBlueType)))
                 {
 
                     Wedge* wedge = pixmapObject->getWedge();

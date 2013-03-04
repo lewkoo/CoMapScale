@@ -5,8 +5,10 @@
 #include <QPen>
 #include <QRect>
 #include "global.h"
+#include "mapmarker.h"
 
 class QPainter;
+class MapMarker;
 
 class Wedge
 {
@@ -43,6 +45,7 @@ private:
     void addPotential(QPoint screenPos);
 
 private:
+    MapMarker* wedgeIcon;
     QColor colour;
     QPen pen;
     QLine lineBase, lineLeg1, lineLeg2;
