@@ -9,6 +9,7 @@ INPUT(
 ./debug\utilities.o
 ./debug\networkclient.o
 ./debug\peerstate.o
+./debug\zoomslideritem.o
 ./debug\moc_geomap.o
 ./debug\moc_mappingwidget.o
 ./debug\moc_networkclient.o

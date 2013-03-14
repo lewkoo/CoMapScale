@@ -42,7 +42,8 @@ SOURCES += main.cpp \
     wedge.cpp \
     utilities.cpp \
     networkclient.cpp \
-    peerstate.cpp
+    peerstate.cpp \
+    zoomslideritem.cpp
 HEADERS += \
     geomap.h \
     mappingwidget.h \
@@ -53,7 +54,8 @@ HEADERS += \
     global.h \
     utilities.h \
     networkclient.h \
-    peerstate.h
+    peerstate.h \
+    zoomslideritem.h
 FORMS +=
 
 # Please do not modify the following two lines. Required for deployment.

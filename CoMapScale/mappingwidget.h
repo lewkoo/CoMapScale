@@ -4,6 +4,7 @@
 #include <QWidget>
 //#include <QGeoMappingManager>
 #include <qgeomappingmanager.h>
+#include <QSlider>
 
 #include "networkclient.h"
 
@@ -42,6 +43,7 @@ protected:
 
 private:
     GeoMap* map;
+    QSlider* m_slider;
     QGraphicsView* view;
     ZoomButtonItem* zoomButton;
 

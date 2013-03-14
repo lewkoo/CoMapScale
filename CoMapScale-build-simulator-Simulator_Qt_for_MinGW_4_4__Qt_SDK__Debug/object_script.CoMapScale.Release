@@ -9,6 +9,7 @@ INPUT(
 ./release\utilities.o
 ./release\networkclient.o
 ./release\peerstate.o
+./release\zoomslideritem.o
 ./release\moc_geomap.o
 ./release\moc_mappingwidget.o
 ./release\moc_networkclient.o

@@ -9,6 +9,8 @@
 #include "mapoverlay.h"
 #include <qgeoboundingbox.h>
 #include "mapmarker.h"
+#include <QSlider>
+#include "zoomslideritem.h"
 
 QTM_USE_NAMESPACE
 
@@ -54,7 +56,7 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
     map->resize(viewportRect.width(), viewportRect.height());
     scene->setSceneRect(viewportRect);
     map->setCenter(QGeoCoordinate(48.854716, 2.346611));
-    map->setZoomLevel(12);
+    map->setZoomLevel(10);
 
     MapOverlay* overlay = new MapOverlay(map);
     map->addMapOverlay(overlay);
@@ -64,8 +66,12 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+    m_slider = new ZoomSliderItem(map, this);
+
+
+
     zoomButton = new ZoomButtonItem(map);
-    zoomButton->setRect(width() - 55, height()/2.0 - 50, 50, 100);
+    zoomButton->setRect(0, 0, 50, 100);
     scene->addItem(zoomButton);
 
     view->setVisible (true);
