@@ -17,7 +17,8 @@ MapMarker::MapMarker(MapMarker::MarkerType type, QString text)
             this->type == MapMarker::PeerBlueType ||
             this->type == MapMarker::PoiType ||
             this->type == MapMarker::RestaurantType ||
-            this->type == MapMarker::HotelType)
+            this->type == MapMarker::HotelType ||
+            this->type == MapMarker::UndoType)
     {
         wedge = new Wedge(getWedgeColour());
         setWedgeIcon(type);
@@ -83,6 +84,10 @@ void MapMarker::setWedgeIcon(MapMarker::MarkerType type){
     else if (type == MapMarker::PoiType)
     {
          marker = new MapMarker(MapMarker::WedgePoiType);
+    }
+    else if (type == MapMarker::UndoType)
+    {
+         marker = new MapMarker(MapMarker::UndoType);
     }
 //    else if (type == MapMarker::HotelType)
 //    {
@@ -154,6 +159,10 @@ QColor MapMarker::getWedgeColour()
     else if (type == MapMarker::PoiType)
     {
         colour = QColor(Qt::yellow);
+    }
+    else if (type == MapMarker::UndoType)
+    {
+        colour = QColor(Qt::blue);
     }
 //    else if (type == MapMarker::HotelType)
 //    {
@@ -324,6 +333,13 @@ void MapMarker::setMarkerType (MapMarker::MarkerType type)
         scale = 40;
         this->setZValue(10);
         break;
+    case UndoType:
+        filename = ":/Icons/wedgeUndo";
+        offset = QPoint(-40,-80);
+        scale = 40;
+        this->setZValue(10);
+        break;
+
     }
 
     //Correct the offset

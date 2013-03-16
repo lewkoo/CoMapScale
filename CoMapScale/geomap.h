@@ -22,6 +22,8 @@ public:
     void setPixelsPerDegree(void);
     void setWedgeEnabled(bool isEnabled, bool isObjWedgeEnabled);
 
+
+
     inline bool isWedgeEnabled() {return wedgeEnabled;}
     inline bool isObjWedgeEnabled() {return objWedgeEnabled;}
 

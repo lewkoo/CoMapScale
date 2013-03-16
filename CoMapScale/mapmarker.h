@@ -39,7 +39,8 @@ public:
         WedgeAnchorType,
         WedgeHotelType,
         WedgeRestaurantType,
-        WedgePoiType
+        WedgePoiType,
+        UndoType
     };
 
     explicit MapMarker(MapMarker::MarkerType type, QString text = QString(""));

@@ -4,12 +4,14 @@
 #include <QGraphicsRectItem>
 #include <QPoint>
 
+class MappingWidget;
+class Wedge;
 class QGraphicsSceneMouseEvent;
 
 class WedgeIcon : public QGraphicsRectItem
 {
 public:
-    explicit WedgeIcon();
+    explicit WedgeIcon(Wedge *parent);
 
 protected:
     void mousePressEvent (QGraphicsSceneMouseEvent *event);
@@ -21,6 +23,7 @@ public slots:
 
 private:
     bool iconPressed;
+    Wedge* parent;
     bool isIconPressed (const QPointF &point);
     
 };

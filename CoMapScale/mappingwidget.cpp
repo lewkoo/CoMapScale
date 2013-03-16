@@ -158,3 +158,9 @@ void MappingWidget::setWedgeEnabled(bool isEnabled, bool objWedgeEnabled)
 {
     map->setWedgeEnabled(isEnabled, objWedgeEnabled);
 }
+
+void MappingWidget::processWedgeIconPress(Wedge *source){
+    //create a return wedge icon on the centre
+    this->addMapMarker(MapMarker::UndoType, map->center());
+
+}

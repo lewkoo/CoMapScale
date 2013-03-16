@@ -9,6 +9,8 @@
 #include "geomap.h"
 #include "mapoverlay.h"
 
+
+
 GeoMap::GeoMap (QGeoMappingManager* mapManager, MappingWidget* mapWidget) :
     QGraphicsGeoMap(mapManager), mapWidget (mapWidget)
 {
@@ -229,3 +231,5 @@ void GeoMap::setWedgeEnabled(bool isEnabled, bool objWedgeEnabled)
     this->wedgeEnabled = isEnabled;
     this->objWedgeEnabled = objWedgeEnabled;
 }
+
+

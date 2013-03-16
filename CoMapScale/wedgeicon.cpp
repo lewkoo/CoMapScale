@@ -1,13 +1,15 @@
 #include "wedgeicon.h"
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
+#include "mappingwidget.h"
 
 
 
-WedgeIcon::WedgeIcon() :
+WedgeIcon::WedgeIcon(Wedge *parent) :
     QGraphicsRectItem()
 {
     iconPressed = false;
+    this->parent = parent;
 }
 
 bool WedgeIcon::isIconPressed (const QPointF &point)
@@ -40,7 +42,12 @@ void WedgeIcon::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     const QPointF pos = event->pos();
 
-    qDebug("You pressed on the icon. ");
+    //send a message to the Wedge
+    //wedge shall handle the request to the Map
+    //map shall create an return icon on its centre
+    //map shall adjust itself
+
+    MappingWidget::processWedgeIconPress(parent);
 
     iconPressed = false;
     event->accept();

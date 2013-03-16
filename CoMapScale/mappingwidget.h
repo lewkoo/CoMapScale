@@ -25,6 +25,7 @@ public:
     ~MappingWidget ();
 
     static QGraphicsScene *getScene();
+    static void processWedgeIconPress(Wedge* source);
 
     void mapPositionChanged();
 

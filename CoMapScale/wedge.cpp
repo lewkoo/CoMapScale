@@ -44,7 +44,7 @@ void Wedge::init()
 
     QPoint* temp = calculateIconLocation();
 
-    button = new WedgeIcon();
+    button = new WedgeIcon(this);
     button->setRect(temp->x(),temp->y(),ICON_WIDTH, ICON_HEIGHT);
     if(MappingWidget::getScene() != NULL)
     MappingWidget::getScene()->addItem(button);
@@ -95,8 +95,9 @@ void Wedge::paint(QPainter *painter)
 
     QPoint* temp = calculateIconLocation();
     button->setRect(temp->x(),temp->y(),ICON_WIDTH, ICON_HEIGHT);
-    button->setPen(QPen(QBrush(),0));
-    button->setBrush(QBrush(QColor(0,0,0,150)));
+    //button->setVisible(false);
+    //button->setPen(QPen(QBrush(),0));
+    //button->setBrush(QBrush(QColor(0,0,0,150)));
 
     //if(distance >= wedgeIcon->pixmap().width()){ //allows wedge icon to disappear when the line gets too small - smaller than the icon size
     painter->drawPixmap(temp->x(),temp->y(),wedgeIcon->pixmap());
