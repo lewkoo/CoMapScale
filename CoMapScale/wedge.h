@@ -4,11 +4,16 @@
 #include <QPoint>
 #include <QPen>
 #include <QRect>
+#include <QGraphicsRectItem>
 #include "global.h"
 #include "mapmarker.h"
+#include "wedgeicon.h"
 
 class QPainter;
+class QGraphicsSceneMouseEvent;
 class MapMarker;
+class MappingWidget;
+class QGraphicsScene;
 
 
 class Wedge
@@ -20,9 +25,11 @@ public:
     static const float POTENTIAL_STRENGTH;
     static const int AP_CHANGE_DIST;  // Distance where wedge aperature function changes.
     static const int MIN_INTRUSION_DEPTH;
+    static const qreal ICON_HEIGHT;
+    static const qreal ICON_WIDTH;
 
-    Wedge ();
-    Wedge (QColor colour);
+      Wedge ();
+      Wedge (QColor colour);
 
     void init();
     //Wedge(QPoint screenPos, QColor colour, QRect viewport);
@@ -32,6 +39,10 @@ public:
     void resetPotentialDelta();
     void detectCollision(Wedge* otherWedge);
     void paint(QPainter *painter);
+
+protected:
+    void mousePressEvent (QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
     void setApertureByWidth(float width);
@@ -45,10 +56,13 @@ private:
     void setTriangle(QPoint screenPos);
     void setTriangle(QPoint screenPos, QPoint p1, QPoint p2);
     void addPotential(QPoint screenPos);
+    QPoint* calculateIconLocation();
+    bool isIconPress(const QPointF &point);
 
 private:
     MapMarker* wedgeIcon;
     QColor colour;
+    WedgeIcon* button;
     QPen pen;
     QLine lineBase, lineLeg1, lineLeg2;
     QRect viewport;
@@ -59,6 +73,8 @@ private:
     float intrusionDepth;
     float targetDistance;
     QPoint closestVertex;
+
+    bool iconPressed; //tells if a user has pressed on the wedge icon
 
     float potential;    //Measures deflection of rotation from other wedges.  Cumulative total.
     float potentialDelta;  //Amount of potential in the current update.

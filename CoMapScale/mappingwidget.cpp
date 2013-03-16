@@ -13,6 +13,8 @@
 
 QTM_USE_NAMESPACE
 
+QGraphicsScene* MappingWidget::scene = NULL;
+
 MappingWidget::MappingWidget(QWidget *parent) :
     QWidget(parent)
 {
@@ -47,7 +49,7 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
     QRect viewportRect(0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
     map = new GeoMap (mapManager, this);
 
-    QGraphicsScene* scene = new QGraphicsScene;
+    scene = new QGraphicsScene;
     scene->addItem(map);
 
     //QList<QGraphicsGeoMap::ConnectivityMode> list = map->supportedConnectivityModes();
@@ -83,6 +85,10 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
     addMapMarker(MapMarker::WedgePeerBlueType, QGeoCoordinate(48.854885, 2.346611));
     addMapMarker(MapMarker::PoiType, QGeoCoordinate(48.954885, 2.34661));
     addMapMarker(MapMarker::AnchorType, QGeoCoordinate(48.754885, 2.34661));
+}
+
+QGraphicsScene* MappingWidget::getScene(){
+    return scene;
 }
 
 void MappingWidget::mapPositionChanged()

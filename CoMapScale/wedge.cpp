@@ -1,14 +1,24 @@
 #include <QPainter>
 #include <QLine>
+#include <QPen>
+#include <QBrush>
+#include <QGraphicsRectItem>
+#include <QGraphicsSceneMouseEvent>
 #include "wedge.h"
 #include "utilities.h"
 #include "math.h"
+#include "mappingwidget.h"
+#include <QGraphicsScene>
+
+
 
 const float Wedge::POTENTIAL_STRENGTH = Utilities::ONE_DEGREE;
 const int Wedge::MAX_APERTURE_WIDTH = 80;
 const int Wedge::MIN_APERTURE_WIDTH = 5;
 const int Wedge::AP_CHANGE_DIST = 800;
 const int Wedge::MIN_INTRUSION_DEPTH = 10;
+const qreal Wedge::ICON_HEIGHT = 35;
+const qreal Wedge::ICON_WIDTH = 40;
 
 Wedge::Wedge()
 {
@@ -32,6 +42,13 @@ void Wedge::init()
     lineLeg1 = QLine(0, 0, 0, 0);
     lineLeg2 = QLine(0, 0, 0, 0);
 
+    QPoint* temp = calculateIconLocation();
+
+    button = new WedgeIcon();
+    button->setRect(temp->x(),temp->y(),ICON_WIDTH, ICON_HEIGHT);
+    if(MappingWidget::getScene() != NULL)
+    MappingWidget::getScene()->addItem(button);
+
     wedgeIcon = NULL;
     //wedgeIcon->setMarkerType(MapMarker::WedgePeerBlueType);
 
@@ -45,6 +62,30 @@ void Wedge::init()
     resistanceDelta = 0;
 }
 
+QPoint* Wedge::calculateIconLocation(){
+
+    QPoint* temp = NULL;
+
+    if(wedgeIcon != NULL){
+    int x = (lineBase.x2() + lineBase.x1())/2;
+    int y = (lineBase.y2() + lineBase.y1())/2;
+
+
+    //int distance = sqrt( (pow(lineBase.x2()-lineBase.x1(),2)) + ( pow ( lineBase.y2()-lineBase.y1(),2)) );
+
+    x = x-20;
+    y = y-20;
+
+    temp = new QPoint(x,y);
+
+    }
+
+
+
+    return temp;
+
+}
+
 void Wedge::paint(QPainter *painter)
 {
     painter->setPen(pen);
@@ -52,23 +93,21 @@ void Wedge::paint(QPainter *painter)
     painter->drawLine(lineLeg1);
     painter->drawLine(lineLeg2);
 
-    if(wedgeIcon != NULL){
-    int x = (lineBase.x2() + lineBase.x1())/2;
-    int y = (lineBase.y2() + lineBase.y1())/2;
+    QPoint* temp = calculateIconLocation();
+    button->setRect(temp->x(),temp->y(),ICON_WIDTH, ICON_HEIGHT);
+    button->setPen(QPen(QBrush(),0));
+    button->setBrush(QBrush(QColor(0,0,0,150)));
 
-    int distance = sqrt( (pow(lineBase.x2()-lineBase.x1(),2)) + ( pow ( lineBase.y2()-lineBase.y1(),2)) );
+    //if(distance >= wedgeIcon->pixmap().width()){ //allows wedge icon to disappear when the line gets too small - smaller than the icon size
+    painter->drawPixmap(temp->x(),temp->y(),wedgeIcon->pixmap());
+   // }
 
-    x = x-20;
-    y = y-20;
-
-    if(distance >= wedgeIcon->pixmap().width()){
-    painter->drawPixmap(x,y,wedgeIcon->pixmap());
-    }
-    }
 
 
 
 }
+
+
 
 void Wedge::setWedge(QPoint screenPos, QRect viewport)
 {
@@ -112,6 +151,7 @@ void Wedge::setWedge(QPoint screenPos, QRect viewport)
     }
     else
     {
+        button->setVisible(false);
         init();
     }
 }

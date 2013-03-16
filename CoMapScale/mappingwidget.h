@@ -20,8 +20,11 @@ class MappingWidget : public QWidget
 {
     Q_OBJECT
 public:
+    static QGraphicsScene* scene;
     explicit MappingWidget(QWidget *parent = 0);
     ~MappingWidget ();
+
+    static QGraphicsScene *getScene();
 
     void mapPositionChanged();
 
@@ -47,6 +50,7 @@ private:
     ZoomSliderItem* m_slider;
     QGraphicsView* view;
     ZoomButtonItem* zoomButton;
+
 
     NetworkClient client;
 };
