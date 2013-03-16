@@ -13,6 +13,7 @@ QTM_USE_NAMESPACE
 class GeoMap;
 class QGraphicsView;
 class ZoomButtonItem;
+class ZoomSliderItem;
 class MapMarker;
 
 class MappingWidget : public QWidget
@@ -43,7 +44,7 @@ protected:
 
 private:
     GeoMap* map;
-    QSlider* m_slider;
+    ZoomSliderItem* m_slider;
     QGraphicsView* view;
     ZoomButtonItem* zoomButton;
 

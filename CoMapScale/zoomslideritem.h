@@ -16,9 +16,10 @@ public:
     void setPosition(qreal x, qreal y, qreal width, qreal height);
     void setSize(qreal x, qreal y, qreal width, qreal height);
     void mouseReleaseEvent(QMouseEvent *ev);
+    void buttonPressed(int value);
 
-private slots:
-    void sliderAdjusted();
+
+
 
 private:
     GeoMap* map;

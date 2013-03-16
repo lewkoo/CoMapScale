@@ -4,13 +4,15 @@
 #include <QBrush>
 #include "zoombuttonitem.h"
 #include "geomap.h"
+#include "zoomslideritem.h"
 
 QTM_USE_NAMESPACE
 
-ZoomButtonItem::ZoomButtonItem(GeoMap* map) :
+ZoomButtonItem::ZoomButtonItem(GeoMap* map, ZoomSliderItem* slider) :
     QGraphicsRectItem()
 {
     this->map = map;
+    this->slider = slider;
     pressedOverTopHalf = false;
     pressedOverBottomHalf = false;
 
@@ -93,11 +95,14 @@ void ZoomButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     const QPointF pos = event->pos();
     if (isTopHalf(pos) && pressedOverTopHalf)
     {
-        map->setZoomLevel(map->zoomLevel() + 1.0);
+        //map->setZoomLevel(map->zoomLevel() + 1.0);
+        slider->buttonPressed(map->zoomLevel()+1.0);
     }
     else if (isBottomHalf(pos) && pressedOverBottomHalf)
     {
-        map->setZoomLevel(map->zoomLevel() - 1.0);
+        //adjust the slider position
+        slider->buttonPressed(map->zoomLevel()-1.0);
+        //map->setZoomLevel(map->zoomLevel() - 1.0);
     }
     pressedOverBottomHalf = false;
     pressedOverTopHalf = false;

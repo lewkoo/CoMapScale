@@ -3,14 +3,16 @@
 
 #include <QGraphicsRectItem>
 
+
 class ZoomButtonItemPimpl;
 class QGraphicsSceneMouseEvent;
 class GeoMap;
+class ZoomSliderItem;
 
 class ZoomButtonItem : public QGraphicsRectItem
 {
 public:
-    explicit ZoomButtonItem(GeoMap* map);
+    explicit ZoomButtonItem(GeoMap* map, ZoomSliderItem* slider);
 
     void setRect (qreal x, qreal y, qreal width, qreal height);
 
@@ -26,6 +28,7 @@ private:
 
 private:
     GeoMap* map;
+    ZoomSliderItem* slider;
 
     QGraphicsSimpleTextItem *plusText;
     QGraphicsSimpleTextItem *minusText;

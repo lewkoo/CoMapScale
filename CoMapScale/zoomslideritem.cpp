@@ -5,12 +5,13 @@
 ZoomSliderItem::ZoomSliderItem(GeoMap *map, QWidget* parent) :
     QSlider()
 {
-    connect(this, SIGNAL(sliderReleased()), parent, SLOT(sliderAdjusted()));
     this->map = map;
 
     rect = new QGraphicsRectItem(150,100,50,200); //figure out the background
 
     setParent(parent);
+    setPageStep(0);
+    setTracking(true);
     setOrientation(Qt::Vertical);
     setWindowOpacity(0);
     setTickInterval(1);
@@ -25,10 +26,9 @@ ZoomSliderItem::ZoomSliderItem(GeoMap *map, QWidget* parent) :
 
 }
 
-void ZoomSliderItem::sliderAdjusted(){
-    int new_map_scale = sliderPosition();
-    map->setZoomLevel(new_map_scale);
-
+void ZoomSliderItem::buttonPressed(int value){
+    setSliderPosition(value);
+    map->setZoomLevel(value);
 }
 
 void ZoomSliderItem::mouseReleaseEvent(QMouseEvent *ev){

@@ -9,7 +9,6 @@
 #include "mapoverlay.h"
 #include <qgeoboundingbox.h>
 #include "mapmarker.h"
-#include <QSlider>
 #include "zoomslideritem.h"
 
 QTM_USE_NAMESPACE
@@ -70,7 +69,7 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
 
 
 
-    zoomButton = new ZoomButtonItem(map);
+    zoomButton = new ZoomButtonItem(map, m_slider);
     zoomButton->setRect(0, 0, 50, 100);
     scene->addItem(zoomButton);
 
