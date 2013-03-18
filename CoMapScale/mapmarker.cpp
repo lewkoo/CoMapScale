@@ -1,4 +1,5 @@
 #include "mapmarker.h"
+#include "mappingwidget.h"
 
 MapMarker::MapMarker(MapMarker::MarkerType type, QString text)
 {
@@ -22,6 +23,7 @@ MapMarker::MapMarker(MapMarker::MarkerType type, QString text)
     {
         wedge = new Wedge(getWedgeColour());
         setWedgeIcon(type);
+
     }
     else
     {
@@ -34,6 +36,13 @@ MapMarker::~MapMarker()
     if (wedge != NULL)
     {
         delete wedge;
+    }
+}
+
+void MapMarker::setMappingWidget(MappingWidget *parent){
+    if(parent != NULL && wedge != NULL){
+    this->parent = parent;
+    wedge->setMappingWidget(parent);
     }
 }
 
@@ -87,7 +96,7 @@ void MapMarker::setWedgeIcon(MapMarker::MarkerType type){
     }
     else if (type == MapMarker::UndoType)
     {
-         marker = new MapMarker(MapMarker::UndoType);
+         marker = new MapMarker(MapMarker::WedgeUndoType);
     }
 //    else if (type == MapMarker::HotelType)
 //    {
@@ -334,6 +343,12 @@ void MapMarker::setMarkerType (MapMarker::MarkerType type)
         this->setZValue(10);
         break;
     case UndoType:
+        filename = ":/Icons/wedgeUndo";
+        offset = QPoint(-40,-80);
+        scale = 40;
+        this->setZValue(10);
+        break;
+    case WedgeUndoType:
         filename = ":/Icons/wedgeUndo";
         offset = QPoint(-40,-80);
         scale = 40;

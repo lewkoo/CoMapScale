@@ -26,6 +26,10 @@ Wedge::Wedge()
     this->colour = QColor("black");
 }
 
+Wedge::~Wedge(){
+    button->setVisible(false);
+}
+
 Wedge::Wedge(QColor colour)
 {
     this->colour = colour;
@@ -34,6 +38,10 @@ Wedge::Wedge(QColor colour)
 
 void Wedge::setWedgeIcon(MapMarker* marker){
     wedgeIcon = marker;
+}
+
+QPoint Wedge::getTarget(){
+    return lineLeg1.p1();
 }
 
 void Wedge::init()
@@ -62,6 +70,14 @@ void Wedge::init()
     resistanceDelta = 0;
 }
 
+void Wedge::setMappingWidget(MappingWidget* parent){
+    if(parent != NULL && button != NULL){
+    this->parent = parent;
+    this->button->setMappingWidget(parent);
+    }
+}
+
+
 QPoint* Wedge::calculateIconLocation(){
 
     QPoint* temp = NULL;
@@ -69,19 +85,11 @@ QPoint* Wedge::calculateIconLocation(){
     if(wedgeIcon != NULL){
     int x = (lineBase.x2() + lineBase.x1())/2;
     int y = (lineBase.y2() + lineBase.y1())/2;
-
-
     //int distance = sqrt( (pow(lineBase.x2()-lineBase.x1(),2)) + ( pow ( lineBase.y2()-lineBase.y1(),2)) );
-
     x = x-20;
     y = y-20;
-
     temp = new QPoint(x,y);
-
     }
-
-
-
     return temp;
 
 }
@@ -112,6 +120,10 @@ void Wedge::paint(QPainter *painter)
 
 void Wedge::setWedge(QPoint screenPos, QRect viewport)
 {
+    if(wedgeIcon->getMarkerType() == MapMarker::WedgeUndoType){
+        button->setVisible(false);
+    }
+
     if (screenPos.x() < 0 || screenPos.x() > viewport.width() ||
             screenPos.y() < 0 || screenPos.y() > viewport.height())
     {

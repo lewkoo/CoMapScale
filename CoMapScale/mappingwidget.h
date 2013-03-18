@@ -21,11 +21,13 @@ class MappingWidget : public QWidget
     Q_OBJECT
 public:
     static QGraphicsScene* scene;
+    static GeoMap* map;
+    static MapMarker* returnMark;
     explicit MappingWidget(QWidget *parent = 0);
     ~MappingWidget ();
 
     static QGraphicsScene *getScene();
-    static void processWedgeIconPress(Wedge* source);
+    void processWedgeIconPress(Wedge* source);
 
     void mapPositionChanged();
 
@@ -47,10 +49,11 @@ protected:
     void closeEvent(QCloseEvent *);
 
 private:
-    GeoMap* map;
+
     ZoomSliderItem* m_slider;
     QGraphicsView* view;
     ZoomButtonItem* zoomButton;
+
 
 
     NetworkClient client;

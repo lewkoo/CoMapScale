@@ -12,6 +12,7 @@ class WedgeIcon : public QGraphicsRectItem
 {
 public:
     explicit WedgeIcon(Wedge *parent);
+    void setMappingWidget(MappingWidget* parent);
 
 protected:
     void mousePressEvent (QGraphicsSceneMouseEvent *event);
@@ -22,6 +23,7 @@ signals:
 public slots:
 
 private:
+    MappingWidget* mappingWidget;
     bool iconPressed;
     Wedge* parent;
     bool isIconPressed (const QPointF &point);

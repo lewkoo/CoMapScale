@@ -14,6 +14,8 @@
 QTM_USE_NAMESPACE
 
 QGraphicsScene* MappingWidget::scene = NULL;
+GeoMap* MappingWidget::map = NULL;
+MapMarker* MappingWidget::returnMark = NULL;
 
 MappingWidget::MappingWidget(QWidget *parent) :
     QWidget(parent)
@@ -46,6 +48,8 @@ void MappingWidget::closeEvent(QCloseEvent * event)
 
 void MappingWidget::initialize(QGeoMappingManager *mapManager)
 {
+
+
     QRect viewportRect(0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
     map = new GeoMap (mapManager, this);
 
@@ -112,7 +116,13 @@ MapMarker* MappingWidget::addMapMarker(MapMarker::MarkerType markerType, QGeoCoo
 MapMarker* MappingWidget::addMapMarker(MapMarker::MarkerType markerType, QGeoCoordinate location, QString text)
 {
     MapMarker* marker = new MapMarker(markerType, text);
+
+    if(markerType == MapMarker::UndoType){
+        returnMark = marker;
+    }//saving undo mark pointer
+
     marker->setCoordinate(location);
+    marker->setMappingWidget(this);
     map->addMapObject (marker);
     map->updateWedges();
 
@@ -161,6 +171,18 @@ void MappingWidget::setWedgeEnabled(bool isEnabled, bool objWedgeEnabled)
 
 void MappingWidget::processWedgeIconPress(Wedge *source){
     //create a return wedge icon on the centre
-    this->addMapMarker(MapMarker::UndoType, map->center());
+     //map->updateWedges();
+    if(returnMark != NULL){
+        removeMapMarker(returnMark);
+    }
+
+
+    addMapMarker(MapMarker::UndoType, map->center());
+
+    //void setCenter(const QGeoCoordinate &center);
+    map->setCenter(map->screenPositionToCoordinate(source->getTarget()));
+    map->updateWedges();
+
+
 
 }

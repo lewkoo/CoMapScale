@@ -8,6 +8,7 @@
 QTM_USE_NAMESPACE
 
 class Wedge;
+class MappingWidget;
 
 class MapMarker : public QGeoMapPixmapObject
 {
@@ -40,16 +41,20 @@ public:
         WedgeHotelType,
         WedgeRestaurantType,
         WedgePoiType,
-        UndoType
+        UndoType,
+        WedgeUndoType
     };
 
-    explicit MapMarker(MapMarker::MarkerType type, QString text = QString(""));
+    MapMarker(MapMarker::MarkerType type, QString text = QString(""));
+    //MapMarker(MapMarker::MarkerType type, QString text = QString(""), MappingWidget *parent = NULL);
+
     ~MapMarker();
 
 public:
     inline MapMarker::MarkerType getMarkerType() const { return this->type; }
     inline QString getText() {return text;}
     void setWedge(QPoint screenPos, QRect viewport);
+    void setMappingWidget(MappingWidget* parent);
     inline Wedge* getWedge() {return wedge;}
 
 private:
@@ -61,7 +66,7 @@ private:
     MapMarker::MarkerType  type;
     QString text;
     Wedge*   wedge;
-
+    MappingWidget* parent;
 };
 
 #endif // MAPMARKER_H

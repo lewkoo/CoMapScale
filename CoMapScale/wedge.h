@@ -30,11 +30,14 @@ public:
 
       Wedge ();
       Wedge (QColor colour);
+      ~Wedge();
 
     void init();
+    QPoint getTarget();
     //Wedge(QPoint screenPos, QColor colour, QRect viewport);
     void setWedge(QPoint screenPos, QRect viewport);
     void setWedgeIcon(MapMarker* marker);
+    void setMappingWidget(MappingWidget* parent);
     void updatePotential();
     void resetPotentialDelta();
     void detectCollision(Wedge* otherWedge);
@@ -61,6 +64,7 @@ private:
 
 private:
     MapMarker* wedgeIcon;
+    MappingWidget* parent;
     QColor colour;
     WedgeIcon* button;
     QPen pen;

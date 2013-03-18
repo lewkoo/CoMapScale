@@ -47,8 +47,13 @@ void WedgeIcon::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     //map shall create an return icon on its centre
     //map shall adjust itself
 
-    MappingWidget::processWedgeIconPress(parent);
+    if(mappingWidget != NULL)
+        mappingWidget->processWedgeIconPress(parent);
 
     iconPressed = false;
     event->accept();
+}
+
+void WedgeIcon::setMappingWidget(MappingWidget *parent){
+    this->mappingWidget = parent;
 }

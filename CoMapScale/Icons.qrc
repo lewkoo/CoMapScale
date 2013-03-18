@@ -29,6 +29,6 @@
         <file alias="wedgeAnchorOrange">Icons/wedgeAnchorOrange.png</file>
         <file alias="wedgeAnchorBlue">Icons/wedgeAnchorBlue.png</file>
         <file alias="wedgeAnchor">Icons/wedgeAnchor.png</file>
-        <file alias="wedgeUndo">Z:/Send to Windows/wedgeReturnBlue.png</file>
+        <file alias="wedgeUndo">Icons/wedgeUndo.png</file>
     </qresource>
 </RCC>
