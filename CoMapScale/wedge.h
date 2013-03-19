@@ -34,6 +34,7 @@ public:
 
     void init();
     QPoint getTarget();
+    MapMarker* getIconType();
     //Wedge(QPoint screenPos, QColor colour, QRect viewport);
     void setWedge(QPoint screenPos, QRect viewport);
     void setWedgeIcon(MapMarker* marker);

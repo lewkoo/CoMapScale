@@ -173,6 +173,10 @@ QColor MapMarker::getWedgeColour()
     {
         colour = QColor(Qt::blue);
     }
+    else if (type == MapMarker::WedgeUndoType)
+    {
+        colour = QColor(Qt::blue);
+    }
 //    else if (type == MapMarker::HotelType)
 //    {
 //        colour = QColor("green");
@@ -343,7 +347,7 @@ void MapMarker::setMarkerType (MapMarker::MarkerType type)
         this->setZValue(10);
         break;
     case UndoType:
-        filename = ":/Icons/wedgeUndo";
+        filename = ":/Icons/undoIcon";
         offset = QPoint(-40,-80);
         scale = 40;
         this->setZValue(10);

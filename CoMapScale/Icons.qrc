@@ -30,5 +30,6 @@
         <file alias="wedgeAnchorBlue">Icons/wedgeAnchorBlue.png</file>
         <file alias="wedgeAnchor">Icons/wedgeAnchor.png</file>
         <file alias="wedgeUndo">Icons/wedgeUndo.png</file>
+        <file alias="undoIcon">Icons/undoIcon.png</file>
     </qresource>
 </RCC>

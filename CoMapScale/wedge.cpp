@@ -27,7 +27,8 @@ Wedge::Wedge()
 }
 
 Wedge::~Wedge(){
-    button->setVisible(false);
+    //button->setVisible(false);
+    //MappingWidget::getScene()->removeItem(button);
 }
 
 Wedge::Wedge(QColor colour)
@@ -42,6 +43,10 @@ void Wedge::setWedgeIcon(MapMarker* marker){
 
 QPoint Wedge::getTarget(){
     return lineLeg1.p1();
+}
+
+MapMarker *Wedge::getIconType(){
+    return wedgeIcon;
 }
 
 void Wedge::init()
@@ -120,9 +125,6 @@ void Wedge::paint(QPainter *painter)
 
 void Wedge::setWedge(QPoint screenPos, QRect viewport)
 {
-    if(wedgeIcon->getMarkerType() == MapMarker::WedgeUndoType){
-        button->setVisible(false);
-    }
 
     if (screenPos.x() < 0 || screenPos.x() > viewport.width() ||
             screenPos.y() < 0 || screenPos.y() > viewport.height())
@@ -164,7 +166,7 @@ void Wedge::setWedge(QPoint screenPos, QRect viewport)
     }
     else
     {
-        button->setVisible(false);
+        MappingWidget::getScene()->removeItem(button);
         init();
     }
 }

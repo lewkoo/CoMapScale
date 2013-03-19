@@ -40,6 +40,7 @@ void WedgeIcon::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void WedgeIcon::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
+    if(iconPressed == true){
     const QPointF pos = event->pos();
 
     //send a message to the Wedge
@@ -52,6 +53,7 @@ void WedgeIcon::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
     iconPressed = false;
     event->accept();
+    }
 }
 
 void WedgeIcon::setMappingWidget(MappingWidget *parent){
