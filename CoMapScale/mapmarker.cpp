@@ -173,10 +173,6 @@ QColor MapMarker::getWedgeColour()
     {
         colour = QColor(Qt::blue);
     }
-    else if (type == MapMarker::WedgeUndoType)
-    {
-        colour = QColor(Qt::blue);
-    }
 //    else if (type == MapMarker::HotelType)
 //    {
 //        colour = QColor("green");

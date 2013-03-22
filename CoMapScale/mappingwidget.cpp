@@ -171,11 +171,10 @@ void MappingWidget::setWedgeEnabled(bool isEnabled, bool objWedgeEnabled)
 
 void MappingWidget::processWedgeIconPress(Wedge *source){
     //create a return wedge icon on the centre
-     map->updateWedges();
-    if(source->getIconType()->getMarkerType() != MapMarker::WedgeUndoType){
+    if(source->getIconType()->getMarkerType() != MapMarker::UndoType){
 
     if(returnMark != NULL){
-
+        returnMark->getWedge()->clearTheButton(); //removes the rectangle
         removeMapMarker(returnMark);
     }
 
@@ -184,12 +183,14 @@ void MappingWidget::processWedgeIconPress(Wedge *source){
 
     map->setCenter(map->screenPositionToCoordinate(source->getTarget()));
     map->updateWedges();
-    }else if (source->getIconType()->getMarkerType() == MapMarker::UndoType ||
-              source->getIconType()->getMarkerType() == MapMarker::WedgeUndoType){
+    }else{
         //hit the undo button
         if(returnMark != NULL){
+            returnMark->getWedge()->clearTheButton(); //removes the rectangle
             removeMapMarker(returnMark);
         }
+
+
 
         map->setCenter(map->screenPositionToCoordinate(source->getTarget()));
         map->updateWedges();

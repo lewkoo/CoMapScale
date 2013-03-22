@@ -27,14 +27,20 @@ Wedge::Wedge()
 }
 
 Wedge::~Wedge(){
-    //button->setVisible(false);
-    //MappingWidget::getScene()->removeItem(button);
+    button->setVisible(false);
+    MappingWidget::getScene()->removeItem(button);
 }
 
 Wedge::Wedge(QColor colour)
 {
     this->colour = colour;
     init();
+}
+
+void Wedge::clearTheButton(){
+    button->setVisible(false);
+    MappingWidget::getScene()->removeItem(button);
+    //MappingWidget::getScene()->
 }
 
 void Wedge::setWedgeIcon(MapMarker* marker){
@@ -55,10 +61,10 @@ void Wedge::init()
     lineLeg1 = QLine(0, 0, 0, 0);
     lineLeg2 = QLine(0, 0, 0, 0);
 
-    QPoint* temp = calculateIconLocation();
+    //QPoint* temp = calculateIconLocation();
 
     button = new WedgeIcon(this);
-    button->setRect(temp->x(),temp->y(),ICON_WIDTH, ICON_HEIGHT);
+
     if(MappingWidget::getScene() != NULL)
     MappingWidget::getScene()->addItem(button);
 

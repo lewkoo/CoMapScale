@@ -32,6 +32,7 @@ public:
       Wedge (QColor colour);
       ~Wedge();
 
+    void clearTheButton();
     void init();
     QPoint getTarget();
     MapMarker* getIconType();
