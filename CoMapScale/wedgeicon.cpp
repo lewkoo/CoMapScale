@@ -41,16 +41,7 @@ void WedgeIcon::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void WedgeIcon::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if(iconPressed == true){
-    const QPointF pos = event->pos();
-
-    //send a message to the Wedge
-    //wedge shall handle the request to the Map
-    //map shall create an return icon on its centre
-    //map shall adjust itself
-
-    if(mappingWidget != NULL)
-        mappingWidget->processWedgeIconPress(parent);
-
+    mappingWidget->processWedgeIconPress(parent);
     iconPressed = false;
     event->accept();
     }
