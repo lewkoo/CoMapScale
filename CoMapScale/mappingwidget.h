@@ -5,6 +5,7 @@
 //#include <QGeoMappingManager>
 #include <qgeomappingmanager.h>
 #include <QSlider>
+#include <QString>
 
 #include "networkclient.h"
 
@@ -14,6 +15,7 @@ class GeoMap;
 class QGraphicsView;
 class ZoomButtonItem;
 class ZoomSliderItem;
+class ZoomStatusItem;
 class MapMarker;
 
 class MappingWidget : public QWidget
@@ -44,6 +46,7 @@ public slots:
     void addNewVw (QString peerId, QGeoCoordinate coordinate);
     void addNewObject(MapMarker::MarkerType markerType, QGeoCoordinate coordinate, QString text);
     void setWedgeEnabled(bool isEnabled, bool objWedgeEnabled);
+    void adjustScale();
 
 protected:
     void closeEvent(QCloseEvent *);
@@ -51,8 +54,10 @@ protected:
 private:
 
     ZoomSliderItem* m_slider;
+    ZoomStatusItem* s_slider;
     QGraphicsView* view;
     ZoomButtonItem* zoomButton;
+    QString peerID;
 
 
 

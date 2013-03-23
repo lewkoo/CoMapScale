@@ -232,4 +232,8 @@ void GeoMap::setWedgeEnabled(bool isEnabled, bool objWedgeEnabled)
     this->objWedgeEnabled = objWedgeEnabled;
 }
 
+int GeoMap::getPeerScale(){
+    return this->peerScale;
+}
+
 

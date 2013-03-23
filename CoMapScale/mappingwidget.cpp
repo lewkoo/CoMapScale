@@ -10,6 +10,7 @@
 #include <qgeoboundingbox.h>
 #include "mapmarker.h"
 #include "zoomslideritem.h"
+#include "zoomstatusitem.h"
 
 QTM_USE_NAMESPACE
 
@@ -30,6 +31,7 @@ MappingWidget::MappingWidget(QWidget *parent) :
     connect(&client, SIGNAL(newVwAdded(QString,QGeoCoordinate)), this, SLOT(addNewVw(QString,QGeoCoordinate)));
     connect(&client, SIGNAL(newObjectAdded(MapMarker::MarkerType,QGeoCoordinate, QString)), this, SLOT(addNewObject(MapMarker::MarkerType,QGeoCoordinate, QString)));
     connect(&client, SIGNAL(wedgeStatusChanged(bool, bool)), this, SLOT(setWedgeEnabled(bool, bool)));
+    connect(&client, SIGNAL(scaleChanged()), this, SLOT(adjustScale()));
 }
 
 MappingWidget::~MappingWidget()
@@ -71,7 +73,9 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+    s_slider = new ZoomStatusItem(map, this);//this order here matters
     m_slider = new ZoomSliderItem(map, this);
+
 
 
 
@@ -104,6 +108,7 @@ void MappingWidget::mapPositionChanged()
     QGeoCoordinate topLeft = viewportBox.topLeft();
     QGeoCoordinate bottomRight = viewportBox.bottomRight();
     qreal scale = map->zoomLevel();
+    adjustScale();
 
     client.sendPosition(position.latitude(), position.longitude(), topLeft.latitude(), topLeft.longitude(), bottomRight.latitude(), bottomRight.longitude(), scale);
 }
@@ -141,6 +146,7 @@ void MappingWidget::addNewPeer(QString peerId, QGeoCoordinate coordinate)
     MapMarker::MarkerType markerType = PeerState::getMarkerTypeById(peerId);
     MapMarker* peerMarker = addMapMarker(markerType, coordinate);
     client.setPeerMarker(peerId, peerMarker);
+    this->peerID = peerId;
 
     map->updateWedges();
 }
@@ -148,6 +154,15 @@ void MappingWidget::addNewPeer(QString peerId, QGeoCoordinate coordinate)
 void MappingWidget::updatePeerPositions()
 {
     map->updateWedges();
+    adjustScale();
+}
+
+void MappingWidget::adjustScale(){
+    //updates the peer's scale bar
+    if(this->peerID != NULL){
+    int peerScale = client.getPeerScale(this->peerID);
+    s_slider->setSliderPosition(peerScale);
+    }
 }
 
 void MappingWidget::addNewVw(QString peerId, QGeoCoordinate coordinate)

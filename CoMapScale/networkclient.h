@@ -19,13 +19,14 @@ public:
     void disconnectFromServer();
     void sendPosition(double latitude, double longitude, double topLeftLat, double topLeftLong, double botRightLat, double botRightLong, qreal scale);
     void setPeerMarker(QString peerId, MapMarker* peerMarker);
+    int getPeerScale(QString peerId);
 
 private:
     void parseMessage(QString message);
     void sendMessage(QString text);
     void removePeer(QString id);
     void addPeer(QString id, QGeoCoordinate coordinate);
-    void updatePeer(QString id, QGeoCoordinate coordinate);
+    void updatePeer(QString id, QGeoCoordinate coordinate, int scale);
 
 signals:
     void requestRepaint();
@@ -35,6 +36,7 @@ signals:
     void newVwAdded(QString peerId, QGeoCoordinate coordinate);
     void newObjectAdded(MapMarker::MarkerType markerType, QGeoCoordinate coordinate, QString text);
     void wedgeStatusChanged(bool isEnabled, bool objWedgeEnabled);
+    void scaleChanged();
 
 private slots:
     void displayError(QAbstractSocket::SocketError socketError);
@@ -48,6 +50,7 @@ private:
     quint16 blockSize;
     QList<PeerState> peerList;
     QString clientId;
+    int scaleList[2];
 };
 
 #endif // NETWORKCLIENT_H

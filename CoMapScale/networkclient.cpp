@@ -90,6 +90,7 @@ void NetworkClient::parseMessage(QString message)
 
     bool parseOK = true;
     int id = -1;
+    int scale = -1;
     float lat = 0;
     float lon = 0;
     float vwLat = 0;
@@ -162,6 +163,15 @@ void NetworkClient::parseMessage(QString message)
             {
                 qDebug() << "Problem parsing id";
             }
+        } else if (pair.startsWith("scale"))  //Other client's scale
+        {
+            QString scaleString = pair.remove(0, 6);
+            scale = scaleString.toInt(&parseOK);
+
+            if (!parseOK)
+            {
+                qDebug() << "Problem parsing scale";
+            }
         }
         else if (pair.startsWith("wedge") || pair.startsWith("nowedge"))
         {
@@ -201,9 +211,9 @@ void NetworkClient::parseMessage(QString message)
         {
             iconText = pair.remove(0, 4);
         }
-        else
-            qDebug() << "Unrecognized message element: " << pair;
-
+        else{
+            //qDebug() << "Unrecognized message element: " << pair;
+        }
     }
 
     if (parseOK)
@@ -227,10 +237,11 @@ void NetworkClient::parseMessage(QString message)
         {
             emit newObjectAdded(MapMarker::RestaurantType, location, iconText);
         }
-        else if (lat != 0 || lon != 0)
+        else if (lat != 0 || lon != 0 || scale != -1)
         {
             addPeer(peerId, location);
-            updatePeer(peerId, location);
+            updatePeer(peerId, location, scale);
+            emit scaleChanged();
         }
 
         if (vwLat != 0 || vwLon != 0)
@@ -245,6 +256,7 @@ void NetworkClient::parseMessage(QString message)
         }
 
         emit requestRepaint();
+        emit scaleChanged();
 
         //qDebug() << "Received update: " << message;
     }
@@ -298,13 +310,14 @@ void NetworkClient::addPeer(QString peerId, QGeoCoordinate coordinate)
     }
 }
 
-void NetworkClient::updatePeer(QString id, QGeoCoordinate coordinate)
+void NetworkClient::updatePeer(QString id, QGeoCoordinate coordinate, int scale)
 {
     for (int i = 0; i < peerList.size(); i++)
     {
         if (id.compare (peerList[i].getPeerId()) == 0)
         {
             peerList[i].setLastPosition(coordinate);
+            scaleList[i]=scale;
             break;
         }
     }
@@ -410,5 +423,11 @@ void NetworkClient::displayError(QAbstractSocket::SocketError socketError)
     }
 
     messageBox.exec();
+
+}
+
+int NetworkClient::getPeerScale(QString peerId){
+    int peerID = peerId.toInt();
+    return scaleList[0];
 
 }

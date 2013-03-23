@@ -21,6 +21,7 @@ public:
     void setZoomLevel(qreal zoomLevel); //Shadows parent method.
     void setPixelsPerDegree(void);
     void setWedgeEnabled(bool isEnabled, bool isObjWedgeEnabled);
+    int getPeerScale();
 
 
 
@@ -39,6 +40,7 @@ private:
 
 private:
     MappingWidget* mapWidget;
+    int peerScale;
     bool panActive;
     double pixelsPerDegreeLatitude;
     double pixelsPerDegreeLongitude;

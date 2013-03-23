@@ -11,6 +11,7 @@ INPUT(
 ./debug\peerstate.o
 ./debug\zoomslideritem.o
 ./debug\wedgeicon.o
+./debug\zoomstatusitem.o
 ./debug\moc_geomap.o
 ./debug\moc_mappingwidget.o
 ./debug\moc_networkclient.o
