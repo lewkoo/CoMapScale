@@ -8,6 +8,7 @@
 #include <QString>
 
 #include "networkclient.h"
+#include "zoomslideritem.h"
 
 QTM_USE_NAMESPACE
 
@@ -32,6 +33,7 @@ public:
     void processWedgeIconPress(Wedge* source);
 
     void mapPositionChanged();
+    void adjustSlider();
 
     MapMarker* addMapMarker(MapMarker::MarkerType markerType, QGeoCoordinate location);
     MapMarker* addMapMarker(MapMarker::MarkerType markerType, QGeoCoordinate location, QString text);

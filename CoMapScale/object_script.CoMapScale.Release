@@ -15,5 +15,6 @@ INPUT(
 ./release\moc_geomap.o
 ./release\moc_mappingwidget.o
 ./release\moc_networkclient.o
+./release\moc_zoomslideritem.o
 ./release\qrc_Icons.o
 );

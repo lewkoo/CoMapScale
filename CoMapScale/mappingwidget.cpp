@@ -32,6 +32,8 @@ MappingWidget::MappingWidget(QWidget *parent) :
     connect(&client, SIGNAL(newObjectAdded(MapMarker::MarkerType,QGeoCoordinate, QString)), this, SLOT(addNewObject(MapMarker::MarkerType,QGeoCoordinate, QString)));
     connect(&client, SIGNAL(wedgeStatusChanged(bool, bool)), this, SLOT(setWedgeEnabled(bool, bool)));
     connect(&client, SIGNAL(scaleChanged()), this, SLOT(adjustScale()));
+
+
 }
 
 MappingWidget::~MappingWidget()
@@ -76,6 +78,7 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
     s_slider = new ZoomStatusItem(map, this);//this order here matters
     m_slider = new ZoomSliderItem(map, this);
 
+    connect(m_slider, SIGNAL(sliderPositionChanged()), this, SLOT(adjustSlider()));
 
 
 
@@ -163,6 +166,10 @@ void MappingWidget::adjustScale(){
     int peerScale = client.getPeerScale(this->peerID);
     s_slider->setSliderPosition(peerScale);
     }
+}
+
+void MappingWidget::adjustSlider(){
+    adjustScale();
 }
 
 void MappingWidget::addNewVw(QString peerId, QGeoCoordinate coordinate)

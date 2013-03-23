@@ -10,6 +10,8 @@ class GeoMap;
 
 class ZoomSliderItem : public QSlider
 {
+    Q_OBJECT
+
 public:
     explicit ZoomSliderItem(GeoMap* map, QWidget* parent);
 
@@ -19,10 +21,12 @@ public:
     void buttonPressed(int value);
 
 
-
+signals:
+    void sliderPositionChanged();
 
 private:
     GeoMap* map;
+    QWidget* parent;
     QGraphicsRectItem *rect;
 
     //QGraphicsSimpleTextItem *collabScale //change to icon

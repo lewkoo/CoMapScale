@@ -15,5 +15,6 @@ INPUT(
 ./debug\moc_geomap.o
 ./debug\moc_mappingwidget.o
 ./debug\moc_networkclient.o
+./debug\moc_zoomslideritem.o
 ./debug\qrc_Icons.o
 );

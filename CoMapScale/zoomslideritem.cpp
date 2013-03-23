@@ -1,5 +1,6 @@
 #include "zoomslideritem.h"
 #include "geomap.h"
+#include "networkclient.h"
 #include <QGraphicsSceneMouseEvent>
 
 ZoomSliderItem::ZoomSliderItem(GeoMap *map, QWidget* parent) :
@@ -29,6 +30,9 @@ ZoomSliderItem::ZoomSliderItem(GeoMap *map, QWidget* parent) :
 void ZoomSliderItem::buttonPressed(int value){
     setSliderPosition(value);
     map->setZoomLevel(value);
+
+    emit sliderPositionChanged();
+    //MappingWidget::adjustSlider();
 }
 
 void ZoomSliderItem::mouseReleaseEvent(QMouseEvent *ev){

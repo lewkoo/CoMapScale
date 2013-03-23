@@ -303,10 +303,11 @@ void NetworkClient::addPeer(QString peerId, QGeoCoordinate coordinate)
     if (!peerFound)
     {
         PeerState newPeer = PeerState(peerId);
-
+        scaleList[peerId.toInt()] = (int)newPeer.getZoomLevel();
         this->peerList.append(newPeer);
 
         emit newPeerAdded(peerId, coordinate);
+        emit scaleChanged();
     }
 }
 
