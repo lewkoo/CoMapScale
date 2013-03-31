@@ -55,6 +55,7 @@ public:
     inline QString getText() {return text;}
     void setWedge(QPoint screenPos, QRect viewport);
     void setMappingWidget(MappingWidget* parent);
+    QString markerToString(MapMarker::MarkerType type);
     inline Wedge* getWedge() {return wedge;}
 
 private:

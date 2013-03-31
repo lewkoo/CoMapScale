@@ -4,6 +4,7 @@
 #include <QTcpSocket>
 #include <QList>
 #include "peerstate.h"
+#include "mapmarker.h"
 
 class QNetworkSession;
 
@@ -17,6 +18,7 @@ public:
 
     void connectToServer();
     void disconnectFromServer();
+    void sendClick(MapMarker *type);
     void sendPosition(double latitude, double longitude, double topLeftLat, double topLeftLong, double botRightLat, double botRightLong, qreal scale);
     void setPeerMarker(QString peerId, MapMarker* peerMarker);
     int getPeerScale(QString peerId);

@@ -2,6 +2,7 @@
 #include <QSettings>
 #include <QNetworkSession>
 #include <QMessageBox>
+#include "mapmarker.h"
 
 #include "networkclient.h"
 #include "peerstate.h"
@@ -30,6 +31,17 @@ void NetworkClient::sendPosition(double latitude, double longitude, double topLe
     sendMessage(text);
 }
 
+void NetworkClient::sendClick(MapMarker *type){
+    QString text = "click:" + type->markerToString(type->getMarkerType());
+            //tr("click:%1").arg(type->markerToString(type->getMarkerType()));
+    //tr("click:" + type->markerToString(type->getMarkerType())).arg();
+
+    qDebug()<<text<<endl;
+
+    sendMessage(text);
+
+}
+
 void NetworkClient::sendMessage(QString text)
 {
     QByteArray block;
@@ -41,7 +53,7 @@ void NetworkClient::sendMessage(QString text)
     out.device()->seek(0);
     out << (quint16)(block.size() - sizeof(quint16));
 
-    //qDebug() << "Sending message: " << text;
+    qDebug() << "Sending message: " << text;
 
     tcpSocket.write(block);
 }

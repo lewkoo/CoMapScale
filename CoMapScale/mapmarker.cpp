@@ -366,3 +366,100 @@ void MapMarker::setMarkerType (MapMarker::MarkerType type)
     QPixmap pixmap = QPixmap(filename).scaledToWidth(scale, Qt::SmoothTransformation);
     setPixmap (pixmap);
 }
+
+QString MapMarker::markerToString(MapMarker::MarkerType type){
+
+    QString filename;
+
+    switch(type){
+    case PeerType:
+        filename = "PeerType";
+        break;
+    case PeerOrangeType:
+        filename = "PeerOrangeType";
+        break;
+    case PeerPurpleType:
+        filename = "PeerPurpleType";
+        break;
+    case PeerRedType:
+        filename = "PeerRedType";
+        break;
+    case PeerBlueType:
+        filename = "PeerBlueType";
+        break;
+    case PoiType:
+        filename = "PoiType";
+        break;
+    case AnchorType:
+        filename = "AnchorType";
+        break;
+    case AnchorOrangeType:
+        filename = "AnchorOrangeType";
+        break;
+    case AnchorPurpleType:
+        filename = "AnchorPurpleType";
+        break;
+    case AnchorRedType:
+        filename = "AnchorRedType";
+        break;
+    case AnchorBlueType:
+        filename = "AnchorBlueType";
+        break;
+    case HotelType:
+        filename = "HotelType";
+        break;
+    case RestaurantType:
+        filename = "RestaurantType";
+        break;
+    case WedgePeerBlueType:
+        filename = "WedgePeerBlueType";
+        break;
+    case WedgePeerRedType:
+        filename = "WedgePeerRedType";
+        break;
+    case WedgePeerPurpleType:
+        filename = "WedgePeerPurpleType";
+        break;
+    case WedgePeerOrangeType:
+        filename = "WedgePeerOrangeType";
+        break;
+    case WedgeAnchorRedType:
+        filename = "WedgeAnchorRedType";
+        break;
+    case WedgeAnchorBlueType:
+        filename = "WedgeAnchorBlueType";
+        break;
+    case WedgeAnchorOrangeType:
+        filename = "WedgeAnchorOrangeType";
+        break;
+    case WedgeAnchorPurpleType:
+        filename = "WedgeAnchorPurpleType";
+        break;
+    case WedgeAnchorType:
+        filename = "WedgeAnchorType";
+        break;
+    case WedgePoiType:
+        filename = "WedgePoiType";
+        break;
+    case WedgeHotelType:
+        filename = "WedgeHotelType";
+        break;
+    case WedgeRestaurantType:
+        filename = "WedgeRestaurantType";
+        break;
+    case UndoType:
+        filename = "UndoType";
+        break;
+    case WedgeUndoType:
+        filename = "WedgeUndoType";
+        break;
+
+    default:
+        filename = "NOT RECOGNIZED";
+        break;
+
+    }
+
+    return filename;
+
+}

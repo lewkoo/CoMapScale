@@ -192,6 +192,11 @@ void MappingWidget::setWedgeEnabled(bool isEnabled, bool objWedgeEnabled)
 }
 
 void MappingWidget::processWedgeIconPress(Wedge *source){
+    //log an icon click
+
+    client.sendClick( source->getIconType());
+
+
     //create a return wedge icon on the centre
     if(source->getIconType()->getMarkerType() != MapMarker::UndoType){
 
