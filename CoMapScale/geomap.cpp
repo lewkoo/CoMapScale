@@ -207,6 +207,13 @@ void GeoMap::setZoomLevel(qreal zoomLevel)
     mapWidget->mapPositionChanged();
 }
 
+void GeoMap::setCenter(const QGeoCoordinate &center){
+    QGraphicsGeoMap::setCenter(center);
+
+
+    mapWidget->mapPositionChangedWithClick(lastClickedData);
+}
+
 void GeoMap::setPixelsPerDegree()
 {
     QGeoCoordinate topLeft, topRight, bottomLeft;
@@ -234,6 +241,10 @@ void GeoMap::setWedgeEnabled(bool isEnabled, bool objWedgeEnabled)
 
 int GeoMap::getPeerScale(){
     return this->peerScale;
+}
+
+void GeoMap::setLastClickedButton(QString clickData){
+    this->lastClickedData=clickData;
 }
 
 

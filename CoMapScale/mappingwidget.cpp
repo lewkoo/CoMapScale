@@ -116,6 +116,18 @@ void MappingWidget::mapPositionChanged()
     client.sendPosition(position.latitude(), position.longitude(), topLeft.latitude(), topLeft.longitude(), bottomRight.latitude(), bottomRight.longitude(), scale);
 }
 
+void MappingWidget::mapPositionChangedWithClick(QString clickData){
+    map->updateWedges();
+
+    QGeoBoundingBox viewportBox = map->viewport();
+    QGeoCoordinate position = map->center();
+    QGeoCoordinate topLeft = viewportBox.topLeft();
+    QGeoCoordinate bottomRight = viewportBox.bottomRight();
+    qreal scale = map->zoomLevel();
+
+    client.sendPosition(position.latitude(), position.longitude(), topLeft.latitude(), topLeft.longitude(), bottomRight.latitude(), bottomRight.longitude(), scale, clickData);
+}
+
 MapMarker* MappingWidget::addMapMarker(MapMarker::MarkerType markerType, QGeoCoordinate location)
 {
     return addMapMarker(markerType, location, "");
@@ -194,7 +206,12 @@ void MappingWidget::setWedgeEnabled(bool isEnabled, bool objWedgeEnabled)
 void MappingWidget::processWedgeIconPress(Wedge *source){
     //log an icon click
 
-    client.sendClick( source->getIconType());
+    MapMarker *temp = source->getIconType();
+    QString clickData = temp->markerToString(temp->getMarkerType());
+    //mapPositionChangedWithClick(clickData);
+
+
+    //client.sendClick( source->getIconType());
 
 
     //create a return wedge icon on the centre
@@ -208,8 +225,10 @@ void MappingWidget::processWedgeIconPress(Wedge *source){
 
     addMapMarker(MapMarker::UndoType, map->center());
 
+    map->setLastClickedButton(clickData);
     map->setCenter(map->screenPositionToCoordinate(source->getTarget()));
     map->updateWedges();
+
     }else{
         //hit the undo button
         if(returnMark != NULL){

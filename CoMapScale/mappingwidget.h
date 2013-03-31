@@ -33,7 +33,8 @@ public:
     void processWedgeIconPress(Wedge* source);
 
     void mapPositionChanged();
-    void adjustSlider();
+    void mapPositionChangedWithClick(QString clickData);
+
 
     MapMarker* addMapMarker(MapMarker::MarkerType markerType, QGeoCoordinate location);
     MapMarker* addMapMarker(MapMarker::MarkerType markerType, QGeoCoordinate location, QString text);
@@ -49,6 +50,7 @@ public slots:
     void addNewObject(MapMarker::MarkerType markerType, QGeoCoordinate coordinate, QString text);
     void setWedgeEnabled(bool isEnabled, bool objWedgeEnabled);
     void adjustScale();
+    void adjustSlider();
 
 protected:
     void closeEvent(QCloseEvent *);

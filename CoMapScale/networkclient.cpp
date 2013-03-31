@@ -31,6 +31,17 @@ void NetworkClient::sendPosition(double latitude, double longitude, double topLe
     sendMessage(text);
 }
 
+void NetworkClient::sendPosition(double latitude, double longitude, double topLeftLat, double topLeftLong, double botRightLat, double botRightLong, qreal scale, QString clickData)
+{
+    QString text = tr("lat:%1,").arg(latitude, 0, 'f', 5) + tr("lon:%1,").arg(longitude, 0, 'f', 5);
+    text += tr("tllat:%1,").arg(topLeftLat, 0, 'f', 5) + tr("tllon:%1,").arg(topLeftLong, 0, 'f', 5);
+    text += tr("brlat:%1,").arg(botRightLat, 0, 'f', 5) + tr("brlon:%1,").arg(botRightLong, 0, 'f', 5);
+    text += tr("scale:%1,").arg(scale, 0, 'f', 3);
+    text += "click:" + clickData;
+
+    sendMessage(text);
+}
+
 void NetworkClient::sendClick(MapMarker *type){
     QString text = "click:" + type->markerToString(type->getMarkerType());
             //tr("click:%1").arg(type->markerToString(type->getMarkerType()));

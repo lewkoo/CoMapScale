@@ -19,9 +19,12 @@ public:
     void updateWedges(void);
     QPoint coordinateToOffscreenPosition (QGeoCoordinate coordinate);
     void setZoomLevel(qreal zoomLevel); //Shadows parent method.
+    void setCenter(const QGeoCoordinate &center);
     void setPixelsPerDegree(void);
     void setWedgeEnabled(bool isEnabled, bool isObjWedgeEnabled);
     int getPeerScale();
+
+    void setLastClickedButton(QString clickData);
 
 
 
@@ -40,6 +43,7 @@ private:
 
 private:
     MappingWidget* mapWidget;
+    QString lastClickedData;
     int peerScale;
     bool panActive;
     double pixelsPerDegreeLatitude;
