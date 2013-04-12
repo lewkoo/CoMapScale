@@ -264,6 +264,7 @@ void NetworkClient::parseMessage(QString message)
         {
             addPeer(peerId, location);
             updatePeer(peerId, location, scale);
+            qDebug() << "New scale: " + (QString::number(scale)) + "\n";
             emit scaleChanged();
         }
 

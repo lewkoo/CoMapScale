@@ -16,6 +16,7 @@ public:
 
     void setPosition(qreal x, qreal y, qreal width, qreal height);
     void setSize(qreal x, qreal y, qreal width, qreal height);
+
 private:
     GeoMap* map;
     QGraphicsRectItem *rect;

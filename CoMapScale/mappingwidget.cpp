@@ -1,4 +1,5 @@
 #include <QGraphicsScene>
+#include <QDebug>
 //#include <QGeoCoordinate>
 #include <qgeocoordinate.h>
 #include <QGraphicsView>
@@ -32,6 +33,7 @@ MappingWidget::MappingWidget(QWidget *parent) :
     connect(&client, SIGNAL(newObjectAdded(MapMarker::MarkerType,QGeoCoordinate, QString)), this, SLOT(addNewObject(MapMarker::MarkerType,QGeoCoordinate, QString)));
     connect(&client, SIGNAL(wedgeStatusChanged(bool, bool)), this, SLOT(setWedgeEnabled(bool, bool)));
     connect(&client, SIGNAL(scaleChanged()), this, SLOT(adjustScale()));
+
 
 
 }
@@ -76,6 +78,8 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     s_slider = new ZoomStatusItem(map, this);//this order here matters
+    //m_slider->setMaximum(map->maximumZoomLevel());
+    //m_slider->setSliderPosition(map->zoomLevel());
     m_slider = new ZoomSliderItem(map, this);
 
     connect(m_slider, SIGNAL(sliderPositionChanged()), this, SLOT(adjustSlider()));
@@ -83,7 +87,7 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
 
 
     zoomButton = new ZoomButtonItem(map, m_slider);
-    zoomButton->setRect(0, 0, 50, 100);
+    zoomButton->setRect(70,70, 50, 250);
     scene->addItem(zoomButton);
 
     view->setVisible (true);
@@ -110,8 +114,8 @@ void MappingWidget::mapPositionChanged()
     QGeoCoordinate position = map->center();
     QGeoCoordinate topLeft = viewportBox.topLeft();
     QGeoCoordinate bottomRight = viewportBox.bottomRight();
-    qreal scale = map->zoomLevel();
     adjustScale();
+    qreal scale = map->zoomLevel();
 
     client.sendPosition(position.latitude(), position.longitude(), topLeft.latitude(), topLeft.longitude(), bottomRight.latitude(), bottomRight.longitude(), scale);
 }
@@ -123,6 +127,7 @@ void MappingWidget::mapPositionChangedWithClick(QString clickData){
     QGeoCoordinate position = map->center();
     QGeoCoordinate topLeft = viewportBox.topLeft();
     QGeoCoordinate bottomRight = viewportBox.bottomRight();
+    adjustScale();
     qreal scale = map->zoomLevel();
 
     client.sendPosition(position.latitude(), position.longitude(), topLeft.latitude(), topLeft.longitude(), bottomRight.latitude(), bottomRight.longitude(), scale, clickData);
@@ -177,11 +182,31 @@ void MappingWidget::adjustScale(){
     if(this->peerID != NULL){
     int peerScale = client.getPeerScale(this->peerID);
     s_slider->setSliderPosition(peerScale);
+
+    int temp = s_slider->sliderPosition();
+
+    map->updateWedges();
+
+
+
+
+    //qDebug( QString::number(temp).toAscii() ) ;
     }
 }
 
 void MappingWidget::adjustSlider(){
     adjustScale();
+
+    QGeoBoundingBox viewportBox = map->viewport();
+    QGeoCoordinate position = map->center();
+    QGeoCoordinate topLeft = viewportBox.topLeft();
+    QGeoCoordinate bottomRight = viewportBox.bottomRight();
+    qreal scale = map->zoomLevel();
+    adjustScale();
+    client.sendPosition(position.latitude(), position.longitude(), topLeft.latitude(), topLeft.longitude(), bottomRight.latitude(), bottomRight.longitude(), scale);
+
+    //client.sendPosition(position.latitude(), position.longitude(), topLeft.latitude(), topLeft.longitude(), bottomRight.latitude(), bottomRight.longitude(), scale);
+
 }
 
 void MappingWidget::addNewVw(QString peerId, QGeoCoordinate coordinate)

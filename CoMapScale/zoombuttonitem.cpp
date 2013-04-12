@@ -34,17 +34,17 @@ void ZoomButtonItem::setRect(qreal x, qreal y, qreal width, qreal height)
 
     QFont font;
     font.setFixedPitch(true);
-    font.setPixelSize(height/3.0);
+    font.setPixelSize(height/15.0);
     plusText->setFont(font);
     minusText->setFont(font);
 
     QRectF plusBound = plusText->boundingRect();
-    QPointF plusCenter(x+width/2.0, y+height/4.0);
+    QPointF plusCenter(x+width/2.0, y+height/10.0);
     QPointF plusDelta = plusCenter - plusBound.center();
     plusText->setPos(plusDelta);
 
     QRectF minusBound = minusText->boundingRect();
-    QPointF minusCenter(x+width/2.0, y+3.0*height/4.0);
+    QPointF minusCenter(x+width/2.0, y+9.0*height/10.0);
     QPointF minusDelta = minusCenter - minusBound.center();
     minusText->setPos(minusDelta);
 }
@@ -97,6 +97,7 @@ void ZoomButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     {
         //map->setZoomLevel(map->zoomLevel() + 1.0);
         slider->buttonPressed(map->zoomLevel()+1.0);
+
     }
     else if (isBottomHalf(pos) && pressedOverBottomHalf)
     {

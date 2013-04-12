@@ -19,9 +19,9 @@ ZoomSliderItem::ZoomSliderItem(GeoMap *map, QWidget* parent) :
     setMaximum(map->maximumZoomLevel());
     setTickPosition(QSlider::TicksBothSides);
     setContentsMargins(1500,1500,1000,1000);
-    setGeometry(150,150,50,200);
+    setGeometry(150,150,50,170);
     setSliderPosition(map->zoomLevel());
-    move(750,100);
+    move(70,110);
     setVisible(true);
 
 
@@ -32,7 +32,6 @@ void ZoomSliderItem::buttonPressed(int value){
     map->setZoomLevel(value);
 
     emit sliderPositionChanged();
-    //MappingWidget::adjustSlider();
 }
 
 void ZoomSliderItem::mouseReleaseEvent(QMouseEvent *ev){

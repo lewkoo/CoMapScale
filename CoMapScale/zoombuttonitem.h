@@ -1,7 +1,7 @@
 #ifndef ZOOMBUTTONITEM_H
 #define ZOOMBUTTONITEM_H
 
-#include <QGraphicsRectItem>
+#include <QGraphicsRectItem>es
 
 
 class ZoomButtonItemPimpl;
@@ -11,6 +11,8 @@ class ZoomSliderItem;
 
 class ZoomButtonItem : public QGraphicsRectItem
 {
+
+
 public:
     explicit ZoomButtonItem(GeoMap* map, ZoomSliderItem* slider);
 
@@ -21,6 +23,8 @@ protected:
     void mousePressEvent (QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
+signals:
+    void zoomButtonPressed();
 
 private:
     bool isTopHalf (const QPointF &point);
