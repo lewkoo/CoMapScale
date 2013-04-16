@@ -42,10 +42,15 @@ MappingWidget::MappingWidget(QWidget *parent) :
     connect(&client, SIGNAL(wedgeStatusChanged(bool, bool)), this, SLOT(setWedgeEnabled(bool, bool)));
     connect(&client, SIGNAL(scaleChanged()), this, SLOT(adjustScale()));
 
+    connect(&client, SIGNAL(newPeerScale(qreal)), this, SLOT(setPeerScale(qreal)));
+    connect(&client, SIGNAL(newPeerCoordinate(QGeoCoordinate)), this, SLOT(setPeerCoordinate(QGeoCoordinate)));
+
+
     connect(&client,SIGNAL(togleGlobalButtonSig(bool)), this, SLOT(turnGlobalButton(bool)));
     connect(&client, SIGNAL(togleStatusSliderSig(bool)),this,SLOT(turnStatusSlider(bool)));
     connect(&client, SIGNAL(togleWedgeIcons(bool)), this, SLOT(turnWedgeIcons(bool)));
     connect(&client, SIGNAL(togleWedgeInteractivity(bool)), this, SLOT(turnWedgeInteractivity(bool)));
+
 }
 
 MappingWidget::~MappingWidget()
@@ -317,13 +322,18 @@ void MappingWidget::processGlobalButtonIconPress(){
 void MappingWidget::setPeerScale(qreal peerScaleIn){
    peerScale = peerScaleIn;
 
-   qDebug() << "New scale received: " + (QString::number(peerScale)) + "\n";
+   //processWizzyWiz();
+
+   //qDebug() << "New scale received: " + (QString::number(peerScale)) + "\n";
 }
 
 void MappingWidget::setPeerCoordinate(QGeoCoordinate peerCoordinatesIn){
-    peerCoordinates = peerCoordinatesIn;
+    if(peerCoordinates != peerCoordinatesIn){
+        peerCoordinates = peerCoordinatesIn;
+        //processWizzyWiz();
+    }
 
-    qDebug() << "New coordinates received";
+    //qDebug() << "New coordinates received";
 }
 
 
@@ -361,7 +371,14 @@ void MappingWidget::turnWedgeInteractivity(bool isEnabled){
         //disable interactivity
     }else{
         wedgeInteractivitySwitch = true;
-        //enable interactivity - might want to do that
+        //enable interactivity
     }
 }
 
+void MappingWidget::processWizzyWiz(){
+    if(globalButtonPressed == true){
+        map->setCenter(peerCoordinates);
+        m_slider->buttonPressed((int)peerScale);
+        //mapPositionChanged();
+    }
+}

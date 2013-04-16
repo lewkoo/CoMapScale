@@ -40,6 +40,9 @@ signals:
     void newObjectAdded(MapMarker::MarkerType markerType, QGeoCoordinate coordinate, QString text);
     void wedgeStatusChanged(bool isEnabled, bool objWedgeEnabled);
     void scaleChanged();
+
+    void newPeerScale(qreal newScale);
+    void newPeerCoordinate(QGeoCoordinate newCoordinate);
     void togleGlobalButtonSig(bool isEnabled);
     void togleStatusSliderSig(bool isEnabled);
     void togleWedgeIcons(bool isEnabled);

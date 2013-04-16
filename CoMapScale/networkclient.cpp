@@ -305,9 +305,11 @@ void NetworkClient::parseMessage(QString message)
         {
             addPeer(peerId, location);
             updatePeer(peerId, location, scale);
-            MappingWidget::setPeerCoordinate(location);
+            emit newPeerCoordinate(location);
+            //MappingWidget::setPeerCoordinate(location);
             //qDebug() << "New scale: " + (QString::number(scale)) + "\n";
-            MappingWidget::setPeerScale(scale);
+            emit newPeerScale(scale);
+            //MappingWidget::setPeerScale(scale);
             emit scaleChanged();
         }
 

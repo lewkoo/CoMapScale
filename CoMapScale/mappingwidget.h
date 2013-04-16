@@ -38,8 +38,6 @@ public:
     ~MappingWidget ();
 
     static QGraphicsScene *getScene();
-    static void setPeerScale(qreal peerScaleIn);
-    static void setPeerCoordinate(QGeoCoordinate peerCoordinatesIn);
     void processWedgeIconPress(Wedge* source);
     void processGlobalButtonIconPress();
 
@@ -72,6 +70,9 @@ public slots:
     void turnWedgeIcons(bool isEnabled);
     void turnWedgeInteractivity(bool isEnabled);
 
+    void setPeerScale(qreal peerScaleIn);
+    void setPeerCoordinate(QGeoCoordinate peerCoordinatesIn);
+
 
 
 
@@ -94,6 +95,10 @@ private:
     qreal currScale;
 
     NetworkClient client;
+
+    void processWizzyWiz();
+
+
 };
 
 #endif // MAPPINGWIDGET_H

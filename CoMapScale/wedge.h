@@ -25,6 +25,7 @@ public:
     static const float POTENTIAL_STRENGTH;
     static const int AP_CHANGE_DIST;  // Distance where wedge aperature function changes.
     static const int MIN_INTRUSION_DEPTH;
+    static const double WEDGE_ICON_OFFSET;
     static const qreal ICON_HEIGHT;
     static const qreal ICON_WIDTH;
 
@@ -61,7 +62,7 @@ private:
     void setTriangle(QPoint screenPos);
     void setTriangle(QPoint screenPos, QPoint p1, QPoint p2);
     void addPotential(QPoint screenPos);
-    QPoint* calculateIconLocation();
+    QPoint calculateIconLocation();
     bool isIconPress(const QPointF &point);
 
 private:

@@ -16,7 +16,8 @@ const float Wedge::POTENTIAL_STRENGTH = Utilities::ONE_DEGREE;
 const int Wedge::MAX_APERTURE_WIDTH = 80;
 const int Wedge::MIN_APERTURE_WIDTH = 5;
 const int Wedge::AP_CHANGE_DIST = 800;
-const int Wedge::MIN_INTRUSION_DEPTH = 10;
+const int Wedge::MIN_INTRUSION_DEPTH = 20;
+const double Wedge::WEDGE_ICON_OFFSET = 20.0;
 const qreal Wedge::ICON_HEIGHT = 35;
 const qreal Wedge::ICON_WIDTH = 40;
 
@@ -89,17 +90,75 @@ void Wedge::setMappingWidget(MappingWidget* parent){
 }
 
 
-QPoint* Wedge::calculateIconLocation(){
+QPoint Wedge::calculateIconLocation(){
 
-    QPoint* temp = NULL;
+    QPoint temp;
 
     if(wedgeIcon != NULL){
     int x = (lineBase.x2() + lineBase.x1())/2;
     int y = (lineBase.y2() + lineBase.y1())/2;
-    //int distance = sqrt( (pow(lineBase.x2()-lineBase.x1(),2)) + ( pow ( lineBase.y2()-lineBase.y1(),2)) );
+    int distance = sqrt( (pow(lineBase.x2()-lineBase.x1(),2)) + ( pow ( lineBase.y2()-lineBase.y1(),2)) );
     x = x-20;
     y = y-20;
-    temp = new QPoint(x,y);
+    temp = QPoint(x,y);
+
+    int x1 = x;
+    int y1 = y;
+
+    int x2 = getTarget().x();
+    int y2 = getTarget().y();
+
+    int d2 = Utilities::distance(QPoint(x1,y1),QPoint(x2,y2));
+
+    int d = (int)Wedge::WEDGE_ICON_OFFSET;
+
+    int x_prime = (d+d2)* (x1-x2)/abs(d2);
+    int y_prime = (d+d2)* (y1-y2)/abs(d2);
+
+    x = x_prime + x2;
+    y = y_prime + y2;
+
+    temp = QPoint(x,y);
+
+    QLine line(QPoint(x,y),getTarget());
+
+
+
+    //double dx = line.dx();
+    //double dy = line.dy();
+
+    //double sinT = dy/Utilities::distance(line.p1(),line.p2());
+    //double cosT = dx/Utilities::distance(line.p1(),line.p2());
+
+    //y = sinT*Utilities::distance(line.p1(),line.p2());
+    //x = cosT*Utilities::distance(line.p1(),line.p2());
+
+
+    //x = line.p1().x();
+    //x += Wedge::WEDGE_ICON_OFFSET;
+
+    //y = line.p1().y();
+    //y += Wedge::WEDGE_ICON_OFFSET;
+
+    //x = x-20;
+    //y = y-20;
+
+    temp = QPoint(x,y);
+    //get angle
+    //double angle = Utilities::getAbsoluteAngle(QPoint(x,y),getTarget());
+    //apply convert polar to euclidian coordinate
+    //temp = Utilities::convertPolarToEuclidianCoordinates(Wedge::WEDGE_ICON_OFFSET,angle);
+
+    //float distance_y = Utilities::distance()
+
+    //double sinT = y/Wedge::WEDGE_ICON_OFFSET;
+    //double cosT = x/Wedge::WEDGE_ICON_OFFSET;
+
+    //y = sinT * Wedge::WEDGE_ICON_OFFSET;
+    //x = cosT * Wedge::WEDGE_ICON_OFFSET;
+    //temp = QPoint(x,y);
+
+
     }
     return temp;
 
@@ -112,12 +171,12 @@ void Wedge::paint(QPainter *painter)
     painter->drawLine(lineLeg1);
     painter->drawLine(lineLeg2);
 
-    QPoint* temp = calculateIconLocation();
+    QPoint temp = calculateIconLocation();
     //button->setRect(temp->x(),temp->y(),ICON_WIDTH, ICON_HEIGHT);
 
     if(MappingWidget::wedgeIconsSwitch == true){
-        button->setRect(temp->x(),temp->y(),ICON_WIDTH, ICON_HEIGHT);
-        painter->drawPixmap(temp->x(),temp->y(),wedgeIcon->pixmap());
+        button->setRect(temp.x(),temp.y(),ICON_WIDTH, ICON_HEIGHT);
+        painter->drawPixmap(temp.x(),temp.y(),wedgeIcon->pixmap());
         button->setVisible(true);
     }else{
         button->setVisible(false);
