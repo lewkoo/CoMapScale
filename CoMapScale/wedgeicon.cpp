@@ -44,6 +44,7 @@ void WedgeIcon::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     mappingWidget->processWedgeIconPress(parent);
     iconPressed = false;
     event->accept();
+    //a
     }
 }
 
