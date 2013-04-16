@@ -19,6 +19,7 @@ public:
     void setSize(qreal x, qreal y, qreal width, qreal height);
     void mouseReleaseEvent(QMouseEvent *ev);
     void buttonPressed(int value);
+    void valueChanged(int value);
 
 
 signals:

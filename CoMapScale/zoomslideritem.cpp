@@ -34,6 +34,13 @@ void ZoomSliderItem::buttonPressed(int value){
     emit sliderPositionChanged();
 }
 
+void ZoomSliderItem::valueChanged(int value){
+    setSliderPosition(value);
+    map->setZoomLevel(value);
+
+    emit sliderPositionChanged();
+}
+
 void ZoomSliderItem::mouseReleaseEvent(QMouseEvent *ev){
     int new_map_scale = sliderPosition();
     map->setZoomLevel(new_map_scale);

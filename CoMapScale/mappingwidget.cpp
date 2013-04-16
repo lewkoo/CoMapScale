@@ -12,18 +12,26 @@
 #include "mapmarker.h"
 #include "zoomslideritem.h"
 #include "zoomstatusitem.h"
+#include "globalbutton.h"
 
 QTM_USE_NAMESPACE
 
 QGraphicsScene* MappingWidget::scene = NULL;
 GeoMap* MappingWidget::map = NULL;
 MapMarker* MappingWidget::returnMark = NULL;
+qreal MappingWidget::peerScale = NULL;
+QGeoCoordinate MappingWidget::peerCoordinates;
+bool MappingWidget::wedgeIconsSwitch;
+bool MappingWidget::wedgeInteractivitySwitch;
 
 MappingWidget::MappingWidget(QWidget *parent) :
     QWidget(parent)
 {
     this->map = NULL;
     this->view = NULL;
+    globalButtonPressed = false;
+    wedgeIconsSwitch = true;
+    wedgeInteractivitySwitch = true;
 
     connect(&client, SIGNAL(requestRepaint()), this, SLOT(repaint()));
     connect(&client, SIGNAL(newPeerAdded(QString, QGeoCoordinate)), this, SLOT(addNewPeer(QString, QGeoCoordinate)));
@@ -34,8 +42,10 @@ MappingWidget::MappingWidget(QWidget *parent) :
     connect(&client, SIGNAL(wedgeStatusChanged(bool, bool)), this, SLOT(setWedgeEnabled(bool, bool)));
     connect(&client, SIGNAL(scaleChanged()), this, SLOT(adjustScale()));
 
-
-
+    connect(&client,SIGNAL(togleGlobalButtonSig(bool)), this, SLOT(turnGlobalButton(bool)));
+    connect(&client, SIGNAL(togleStatusSliderSig(bool)),this,SLOT(turnStatusSlider(bool)));
+    connect(&client, SIGNAL(togleWedgeIcons(bool)), this, SLOT(turnWedgeIcons(bool)));
+    connect(&client, SIGNAL(togleWedgeInteractivity(bool)), this, SLOT(turnWedgeInteractivity(bool)));
 }
 
 MappingWidget::~MappingWidget()
@@ -96,10 +106,14 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
     //Connect to network server
     client.connectToServer();
 
+    //add global button
+
+
     //Test
-    addMapMarker(MapMarker::WedgePeerBlueType, QGeoCoordinate(48.854885, 2.346611));
+    //addMapMarker(MapMarker::WedgePeerBlueType, QGeoCoordinate(48.854885, 2.346611));
     addMapMarker(MapMarker::PoiType, QGeoCoordinate(48.954885, 2.34661));
     addMapMarker(MapMarker::AnchorType, QGeoCoordinate(48.754885, 2.34661));
+
 }
 
 QGraphicsScene* MappingWidget::getScene(){
@@ -168,6 +182,10 @@ void MappingWidget::addNewPeer(QString peerId, QGeoCoordinate coordinate)
     client.setPeerMarker(peerId, peerMarker);
     this->peerID = peerId;
 
+    globalButton = new GlobalButton(map, peerID, this);
+    globalButton->setRect(70,27,50,35);
+    scene->addItem(globalButton);
+
     map->updateWedges();
 }
 
@@ -182,8 +200,9 @@ void MappingWidget::adjustScale(){
     if(this->peerID != NULL){
     int peerScale = client.getPeerScale(this->peerID);
     s_slider->setSliderPosition(peerScale);
+    int temp = abs(m_slider->sliderPosition()-peerScale);
+    m_slider->setPageStep(temp);
 
-    int temp = s_slider->sliderPosition();
 
     map->updateWedges();
 
@@ -231,16 +250,13 @@ void MappingWidget::setWedgeEnabled(bool isEnabled, bool objWedgeEnabled)
 void MappingWidget::processWedgeIconPress(Wedge *source){
     //log an icon click
 
+    if(wedgeInteractivitySwitch == true){
+
     MapMarker *temp = source->getIconType();
     QString clickData = temp->markerToString(temp->getMarkerType());
-    //mapPositionChangedWithClick(clickData);
-
-
-    //client.sendClick( source->getIconType());
-
 
     //create a return wedge icon on the centre
-    if(source->getIconType()->getMarkerType() != MapMarker::UndoType){
+    if(source->getIconType()->getMarkerType() != MapMarker::WedgeUndoType){
 
     if(returnMark != NULL){
         returnMark->getWedge()->clearTheButton(); //removes the rectangle
@@ -256,16 +272,96 @@ void MappingWidget::processWedgeIconPress(Wedge *source){
 
     }else{
         //hit the undo button
-        if(returnMark != NULL){
-            returnMark->getWedge()->clearTheButton(); //removes the rectangle
-            removeMapMarker(returnMark);
-        }
-
-
-
         map->setCenter(map->screenPositionToCoordinate(source->getTarget()));
         map->updateWedges();
+
+        returnMark->getWedge()->clearTheButton(); //removes the rectangle
+        removeMapMarker(returnMark);
+
+
+        }
+    }
+
+}
+
+void MappingWidget::processGlobalButtonIconPress(){
+    //take the current scale and position
+    if(globalButtonPressed == false){
+        //save your current location & scale
+        currLocation = map->center();
+        currScale = map->zoomLevel();
+
+        //set yor current location & scale to the other users
+        map->setCenter(peerCoordinates);
+        m_slider->buttonPressed((int)peerScale);
+        adjustSlider();
+        globalButton->setToUndo();
+        globalButtonPressed = true;
+    }else{
+
+        map->setCenter(currLocation);
+
+        m_slider->buttonPressed((int)currScale);
+        adjustSlider();
+
+        globalButton->setToPeerIcon();
+        globalButtonPressed = false;
     }
 
 
+    //update the global button to display undo icon
+
 }
+
+
+void MappingWidget::setPeerScale(qreal peerScaleIn){
+   peerScale = peerScaleIn;
+
+   qDebug() << "New scale received: " + (QString::number(peerScale)) + "\n";
+}
+
+void MappingWidget::setPeerCoordinate(QGeoCoordinate peerCoordinatesIn){
+    peerCoordinates = peerCoordinatesIn;
+
+    qDebug() << "New coordinates received";
+}
+
+
+void MappingWidget::turnGlobalButton(bool isEnabled){
+    if(isEnabled == false){
+    globalButton->setVisible(false);
+    }else{
+        globalButton->setVisible(true);
+    }
+}
+
+void MappingWidget::turnStatusSlider(bool isEnabled){
+    if(isEnabled == false){
+    s_slider->setVisible(false);
+    }else{
+        s_slider->setVisible(true);
+    }
+}
+
+void MappingWidget::turnWedgeIcons(bool isEnabled){
+    if(isEnabled == false){
+        wedgeIconsSwitch = false;
+        wedgeInteractivitySwitch = false;
+        //disable interactivity
+    }else{
+        wedgeIconsSwitch = true;
+        //enable interactivity - might want to do that
+    }
+}
+
+void MappingWidget::turnWedgeInteractivity(bool isEnabled){
+    if(isEnabled == false){
+
+        wedgeInteractivitySwitch = false;
+        //disable interactivity
+    }else{
+        wedgeInteractivitySwitch = true;
+        //enable interactivity - might want to do that
+    }
+}
+

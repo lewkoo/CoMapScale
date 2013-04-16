@@ -1,7 +1,7 @@
 #ifndef ZOOMBUTTONITEM_H
 #define ZOOMBUTTONITEM_H
 
-#include <QGraphicsRectItem>es
+#include <QGraphicsRectItem>
 
 
 class ZoomButtonItemPimpl;

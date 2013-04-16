@@ -3,6 +3,7 @@
 #include <QNetworkSession>
 #include <QMessageBox>
 #include "mapmarker.h"
+#include "mappingwidget.h"
 
 #include "networkclient.h"
 #include "peerstate.h"
@@ -10,6 +11,12 @@
 NetworkClient::NetworkClient()
     :QObject(0)
 {
+
+    globalEnabled = true;
+    statusSliderEnabled = true;
+    wedgeIconsEnabled = true;
+    wedgePressesEnabled = true;
+
     connect(&tcpSocket, SIGNAL(error(QAbstractSocket::SocketError)),
             this, SLOT(displayError(QAbstractSocket::SocketError)));
     connect(&tcpSocket, SIGNAL(readyRead()), this, SLOT(inDataReady()));
@@ -64,7 +71,7 @@ void NetworkClient::sendMessage(QString text)
     out.device()->seek(0);
     out << (quint16)(block.size() - sizeof(quint16));
 
-    qDebug() << "Sending message: " << text;
+    //qDebug() << "Sending message: " << text;
 
     tcpSocket.write(block);
 }
@@ -124,7 +131,7 @@ void NetworkClient::parseMessage(QString message)
     bool wedgeEnabledChanged = false;
     bool wedgeEnabled = true;
     bool objWedgeEnabledChanged = false;
-    bool objWedgeEnabled = false;
+    bool objWedgeEnabled = false; 
     QString iconText;
 
     for (int i = 0; i < elements.size(); i++)
@@ -233,6 +240,40 @@ void NetworkClient::parseMessage(QString message)
         else if (pair.startsWith("txt"))    //Icon text
         {
             iconText = pair.remove(0, 4);
+        }else if (pair.startsWith("noglobal") || pair.startsWith("global")){
+            //turn off global stuff in Mapping Widget
+            if(globalEnabled == true){
+                emit togleGlobalButtonSig(false);
+                globalEnabled = false;
+            }else{
+                emit togleGlobalButtonSig(true);
+                globalEnabled = true;
+            }
+
+        }else if (pair.startsWith("nostatusslider") || pair.startsWith("statusslider")){
+            if(statusSliderEnabled == true){
+                emit togleStatusSliderSig(false);
+                statusSliderEnabled = false;
+            }else{
+                emit togleStatusSliderSig(true);
+                statusSliderEnabled = true;
+            }
+        }else if(pair.startsWith("noiconswedge") || pair.startsWith("iconswedge")){
+            if(wedgeIconsEnabled == true){
+                emit togleWedgeIcons(false);
+                wedgeIconsEnabled = false;
+            }else{
+                emit togleWedgeIcons(true);
+                wedgeIconsEnabled = true;
+            }
+        }else if(pair.startsWith("nopresseswedge") || pair.startsWith("presseswedge")){
+            if(wedgePressesEnabled == true){
+               emit togleWedgeInteractivity(false);
+                wedgePressesEnabled = false;
+            }else{
+                emit togleWedgeInteractivity(true);
+                wedgePressesEnabled = true;
+            }
         }
         else{
             //qDebug() << "Unrecognized message element: " << pair;
@@ -264,7 +305,9 @@ void NetworkClient::parseMessage(QString message)
         {
             addPeer(peerId, location);
             updatePeer(peerId, location, scale);
-            qDebug() << "New scale: " + (QString::number(scale)) + "\n";
+            MappingWidget::setPeerCoordinate(location);
+            //qDebug() << "New scale: " + (QString::number(scale)) + "\n";
+            MappingWidget::setPeerScale(scale);
             emit scaleChanged();
         }
 

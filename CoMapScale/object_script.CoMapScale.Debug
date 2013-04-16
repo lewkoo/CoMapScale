@@ -12,6 +12,7 @@ INPUT(
 ./debug\zoomslideritem.o
 ./debug\wedgeicon.o
 ./debug\zoomstatusitem.o
+./debug\globalbutton.o
 ./debug\moc_geomap.o
 ./debug\moc_mappingwidget.o
 ./debug\moc_networkclient.o

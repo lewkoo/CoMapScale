@@ -9,6 +9,7 @@
 
 #include "networkclient.h"
 #include "zoomslideritem.h"
+#include "globalbutton.h"
 
 QTM_USE_NAMESPACE
 
@@ -23,14 +24,24 @@ class MappingWidget : public QWidget
 {
     Q_OBJECT
 public:
+
+    static bool wedgeIconsSwitch;
+    static bool wedgeInteractivitySwitch;
+
+
     static QGraphicsScene* scene;
     static GeoMap* map;
     static MapMarker* returnMark;
+    static qreal peerScale;
+    static QGeoCoordinate peerCoordinates;
     explicit MappingWidget(QWidget *parent = 0);
     ~MappingWidget ();
 
     static QGraphicsScene *getScene();
+    static void setPeerScale(qreal peerScaleIn);
+    static void setPeerCoordinate(QGeoCoordinate peerCoordinatesIn);
     void processWedgeIconPress(Wedge* source);
+    void processGlobalButtonIconPress();
 
     void mapPositionChanged();
     void mapPositionChangedWithClick(QString clickData);
@@ -38,6 +49,10 @@ public:
 
     MapMarker* addMapMarker(MapMarker::MarkerType markerType, QGeoCoordinate location);
     MapMarker* addMapMarker(MapMarker::MarkerType markerType, QGeoCoordinate location, QString text);
+
+
+
+
 
 signals:
 
@@ -52,6 +67,14 @@ public slots:
     void adjustScale();
     void adjustSlider();
 
+    void turnGlobalButton(bool isEnabled);
+    void turnStatusSlider(bool isEnabled);
+    void turnWedgeIcons(bool isEnabled);
+    void turnWedgeInteractivity(bool isEnabled);
+
+
+
+
 protected:
     void closeEvent(QCloseEvent *);
 
@@ -60,10 +83,15 @@ private:
     ZoomSliderItem* m_slider;
     ZoomStatusItem* s_slider;
     QGraphicsView* view;
+    GlobalButton* globalButton;
     ZoomButtonItem* zoomButton;
+
     QString peerID;
 
-
+    //for global button
+    bool globalButtonPressed;
+    QGeoCoordinate currLocation;
+    qreal currScale;
 
     NetworkClient client;
 };

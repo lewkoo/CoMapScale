@@ -40,6 +40,10 @@ signals:
     void newObjectAdded(MapMarker::MarkerType markerType, QGeoCoordinate coordinate, QString text);
     void wedgeStatusChanged(bool isEnabled, bool objWedgeEnabled);
     void scaleChanged();
+    void togleGlobalButtonSig(bool isEnabled);
+    void togleStatusSliderSig(bool isEnabled);
+    void togleWedgeIcons(bool isEnabled);
+    void togleWedgeInteractivity(bool isEnabled);
 
 private slots:
     void displayError(QAbstractSocket::SocketError socketError);
@@ -54,6 +58,12 @@ private:
     QList<PeerState> peerList;
     QString clientId;
     int scaleList[2];
+
+    bool globalEnabled;
+    bool statusSliderEnabled;
+    bool wedgeIconsEnabled;
+    bool wedgePressesEnabled;
+
 };
 
 #endif // NETWORKCLIENT_H
