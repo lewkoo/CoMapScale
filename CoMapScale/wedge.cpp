@@ -118,6 +118,7 @@ void Wedge::paint(QPainter *painter)
     if(MappingWidget::wedgeIconsSwitch == true){
         button->setRect(temp->x(),temp->y(),ICON_WIDTH, ICON_HEIGHT);
         painter->drawPixmap(temp->x(),temp->y(),wedgeIcon->pixmap());
+        button->setVisible(true);
     }else{
         button->setVisible(false);
     }
