@@ -171,7 +171,7 @@ QColor MapMarker::getWedgeColour()
     }
     else if (type == MapMarker::UndoType)
     {
-        colour = QColor(Qt::blue);
+        colour = QColor(123,191,106,255);
     }
 //    else if (type == MapMarker::HotelType)
 //    {
@@ -354,6 +354,12 @@ void MapMarker::setMarkerType (MapMarker::MarkerType type)
         scale = 40;
         this->setZValue(10);
         break;
+    case GlobalButton:
+        filename = ":/Icons/globalButton";
+        offset = QPoint(-40,-80);
+        scale = 40;
+        this->setZValue(10);
+        break;
 
     }
 
@@ -453,6 +459,8 @@ QString MapMarker::markerToString(MapMarker::MarkerType type){
     case WedgeUndoType:
         filename = "WedgeUndoType";
         break;
+    case GlobalButton:
+        filename = "GlobalButton";
 
     default:
         filename = "NOT RECOGNIZED";

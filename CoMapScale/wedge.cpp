@@ -119,46 +119,6 @@ QPoint Wedge::calculateIconLocation(){
     y = y_prime + y2;
 
     temp = QPoint(x,y);
-
-    QLine line(QPoint(x,y),getTarget());
-
-
-
-    //double dx = line.dx();
-    //double dy = line.dy();
-
-    //double sinT = dy/Utilities::distance(line.p1(),line.p2());
-    //double cosT = dx/Utilities::distance(line.p1(),line.p2());
-
-    //y = sinT*Utilities::distance(line.p1(),line.p2());
-    //x = cosT*Utilities::distance(line.p1(),line.p2());
-
-
-    //x = line.p1().x();
-    //x += Wedge::WEDGE_ICON_OFFSET;
-
-    //y = line.p1().y();
-    //y += Wedge::WEDGE_ICON_OFFSET;
-
-    //x = x-20;
-    //y = y-20;
-
-    temp = QPoint(x,y);
-    //get angle
-    //double angle = Utilities::getAbsoluteAngle(QPoint(x,y),getTarget());
-    //apply convert polar to euclidian coordinate
-    //temp = Utilities::convertPolarToEuclidianCoordinates(Wedge::WEDGE_ICON_OFFSET,angle);
-
-    //float distance_y = Utilities::distance()
-
-    //double sinT = y/Wedge::WEDGE_ICON_OFFSET;
-    //double cosT = x/Wedge::WEDGE_ICON_OFFSET;
-
-    //y = sinT * Wedge::WEDGE_ICON_OFFSET;
-    //x = cosT * Wedge::WEDGE_ICON_OFFSET;
-    //temp = QPoint(x,y);
-
-
     }
     return temp;
 

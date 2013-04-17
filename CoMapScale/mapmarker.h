@@ -42,7 +42,8 @@ public:
         WedgeRestaurantType,
         WedgePoiType,
         UndoType,
-        WedgeUndoType
+        WedgeUndoType,
+        GlobalButton
     };
 
     MapMarker(MapMarker::MarkerType type, QString text = QString(""));

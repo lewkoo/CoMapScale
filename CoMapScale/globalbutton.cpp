@@ -19,10 +19,10 @@ GlobalButton::GlobalButton(GeoMap* map, QString peerID, MappingWidget *parent) :
     qDebug()<< "Peer ID: " + peerID;
 
     if(peerID == "0"){
-        MapMarker::MarkerType type = MapMarker::WedgePeerRedType;
+        MapMarker::MarkerType type = MapMarker::GlobalButton;
         peerIcon = new MapMarker(type, "");
     }else if (peerID == "1"){
-        MapMarker::MarkerType type = MapMarker::WedgePeerBlueType;
+        MapMarker::MarkerType type = MapMarker::GlobalButton;
         peerIcon = new MapMarker(type, "");
     }
 
@@ -91,10 +91,10 @@ void GlobalButton::setToUndo(){
 void GlobalButton::setToPeerIcon(){
 
     if(this->peerID == "0"){
-        MapMarker::MarkerType type = MapMarker::WedgePeerRedType;
+        MapMarker::MarkerType type = MapMarker::GlobalButton;
         peerIcon = new MapMarker(type, "");
     }else if (this->peerID == "1"){
-        MapMarker::MarkerType type = MapMarker::WedgePeerBlueType;
+        MapMarker::MarkerType type = MapMarker::GlobalButton;
         peerIcon = new MapMarker(type, "");
     }
 
