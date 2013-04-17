@@ -136,6 +136,8 @@ void MappingWidget::mapPositionChanged()
     adjustScale();
     qreal scale = map->zoomLevel();
 
+
+
     client.sendPosition(position.latitude(), position.longitude(), topLeft.latitude(), topLeft.longitude(), bottomRight.latitude(), bottomRight.longitude(), scale);
 }
 
@@ -148,6 +150,8 @@ void MappingWidget::mapPositionChangedWithClick(QString clickData){
     QGeoCoordinate bottomRight = viewportBox.bottomRight();
     adjustScale();
     qreal scale = map->zoomLevel();
+
+
 
     client.sendPosition(position.latitude(), position.longitude(), topLeft.latitude(), topLeft.longitude(), bottomRight.latitude(), bottomRight.longitude(), scale, clickData);
 }
@@ -380,5 +384,17 @@ void MappingWidget::processWizzyWiz(){
         map->setCenter(peerCoordinates);
         m_slider->buttonPressed((int)peerScale);
         //mapPositionChanged();
+    }
+}
+
+bool MappingWidget::isGlobalButtonPressed(){
+    return globalButtonPressed;
+}
+
+void MappingWidget::resetWizzyWizMode(){
+    if(globalButtonPressed == true){
+        //break ouf of wizzy wiz mode
+        globalButtonPressed = false;
+        globalButton->setToPeerIcon();
     }
 }

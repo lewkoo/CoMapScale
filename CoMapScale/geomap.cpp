@@ -45,6 +45,10 @@ void GeoMap::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         pan(delta.x(), delta.y());
     }
 
+    if(mapWidget->isGlobalButtonPressed() == true){
+        mapWidget->resetWizzyWizMode();
+    }
+
     mapWidget->mapPositionChanged();
     event->accept();
 }

@@ -44,6 +44,9 @@ public:
     void mapPositionChanged();
     void mapPositionChangedWithClick(QString clickData);
 
+    bool isGlobalButtonPressed();
+    void resetWizzyWizMode();
+
 
     MapMarker* addMapMarker(MapMarker::MarkerType markerType, QGeoCoordinate location);
     MapMarker* addMapMarker(MapMarker::MarkerType markerType, QGeoCoordinate location, QString text);
