@@ -28,8 +28,8 @@ GlobalButton::GlobalButton(GeoMap* map, QString peerID, MappingWidget *parent) :
 
     buttonPressed = false;
 
-    setPen(QPen(QBrush(), 0));
-    setBrush(QBrush(QColor(0,0,0,0)));
+
+
 
 
     //draw icon
@@ -41,14 +41,17 @@ GlobalButton::GlobalButton(GeoMap* map, QString peerID, MappingWidget *parent) :
 
 void GlobalButton::setRect(qreal x, qreal y, qreal width, qreal height){
     QGraphicsRectItem::setRect(x, y, width, height);
-    icon->setPos(x+7,y);
+    setPen(QPen(QBrush(), -10));
+    setBrush(QBrush(QColor(0,0,0,0)));
+
+    icon->setPos(x+5,y);
     icon->setVisible(true);
 }
 
 bool GlobalButton::isPressed(const QPointF &point){
     bool returnValue = false;
 
-    if (this->contains(point) && point.y() > this->rect().center().y())
+    if (this->contains(point) ) //&& point.y() > this->rect().center().y()
     {
         returnValue = true;
     }
@@ -73,8 +76,6 @@ void GlobalButton::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
     if (isPressed(pos) && buttonPressed)
     {
         //adjust the scale and locaitons smoothly
-        qDebug()<< "Global icon pressed";
-
         parent->processGlobalButtonIconPress();
 
     }
