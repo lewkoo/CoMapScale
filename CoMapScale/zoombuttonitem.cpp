@@ -34,12 +34,12 @@ void ZoomButtonItem::setRect(qreal x, qreal y, qreal width, qreal height)
 
     QFont font;
     font.setFixedPitch(true);
-    font.setPixelSize(height/15.0);
+    font.setPixelSize(height/9.0);
     plusText->setFont(font);
     minusText->setFont(font);
 
     QRectF plusBound = plusText->boundingRect();
-    QPointF plusCenter(x+width/2.0, y+height/10.0);
+    QPointF plusCenter(x+width/2.0, y+height/12.0);
     QPointF plusDelta = plusCenter - plusBound.center();
     plusText->setPos(plusDelta);
 

@@ -21,7 +21,7 @@ ZoomSliderItem::ZoomSliderItem(GeoMap *map, QWidget* parent) :
     setContentsMargins(1500,1500,1000,1000);
     setGeometry(150,150,50,170);
     setSliderPosition(map->zoomLevel());
-    move(70,110);
+    move(660,120);
     setVisible(true);
 
 

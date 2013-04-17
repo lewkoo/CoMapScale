@@ -102,7 +102,7 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
 
 
     zoomButton = new ZoomButtonItem(map, m_slider);
-    zoomButton->setRect(70,70, 50, 250);
+    zoomButton->setRect(660,80, 50, 250);
     scene->addItem(zoomButton);
 
     view->setVisible (true);
@@ -192,7 +192,7 @@ void MappingWidget::addNewPeer(QString peerId, QGeoCoordinate coordinate)
     this->peerID = peerId;
 
     globalButton = new GlobalButton(map, peerID, this);
-    globalButton->setRect(70,27,50,35);
+    globalButton->setRect(660,37,50,35);
     scene->addItem(globalButton);
 
     map->updateWedges();
