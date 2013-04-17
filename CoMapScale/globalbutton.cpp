@@ -27,14 +27,10 @@ GlobalButton::GlobalButton(GeoMap* map, QString peerID, MappingWidget *parent) :
     }
 
     buttonPressed = false;
-
-
-
-
-
     //draw icon
 
     icon = new QGraphicsPixmapItem(peerIcon->pixmap(), this);
+    icon->setVisible(false);
 
 
 }

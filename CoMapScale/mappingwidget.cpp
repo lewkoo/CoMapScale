@@ -330,7 +330,7 @@ void MappingWidget::setPeerScale(qreal peerScaleIn){
 void MappingWidget::setPeerCoordinate(QGeoCoordinate peerCoordinatesIn){
     if(peerCoordinates != peerCoordinatesIn){
         peerCoordinates = peerCoordinatesIn;
-        //processWizzyWiz();
+        processWizzyWiz();
     }
 
     //qDebug() << "New coordinates received";
