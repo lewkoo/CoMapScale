@@ -102,6 +102,7 @@ void NetworkClient::inDataReady()
             else
             {
                 qDebug() << "Too many bytes available";
+                blockSize = 0;
             }
         }
         else

@@ -28,7 +28,7 @@ bool MappingWidget::wedgeIconsSwitch;
 bool MappingWidget::wedgeInteractivitySwitch;
 
 
-const int MappingWidget::NUM_TEST_MOVES = 1000000000;
+const int MappingWidget::NUM_TEST_MOVES = 1000;
 
 MappingWidget::MappingWidget(QWidget *parent) :
     QWidget(parent)
@@ -138,8 +138,8 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
     addMapMarker(MapMarker::AnchorType, QGeoCoordinate(48.754885, 2.34661));
 
 
-    runServerLoggingTests();
-    sleepFor(10);
+    //runServerLoggingTests();
+    //sleepFor(10);
 
 
 }
@@ -249,6 +249,7 @@ void MappingWidget::adjustScale(){
 void MappingWidget::adjustSlider(){
     adjustScale();
 
+    globalButtonPressed = false;
 
 
     QGeoBoundingBox viewportBox = map->viewport();
