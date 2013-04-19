@@ -13,6 +13,7 @@ INPUT(
 ./debug\wedgeicon.o
 ./debug\zoomstatusitem.o
 ./debug\globalbutton.o
+./debug\zoomstatusicon.o
 ./debug\moc_geomap.o
 ./debug\moc_mappingwidget.o
 ./debug\moc_networkclient.o

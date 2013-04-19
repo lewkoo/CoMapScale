@@ -775,3 +775,10 @@ Situation Wedge::determineTargetSituation(QPoint screenPos)
 
     return situation;
 }
+
+void Wedge::setWedgeTargetIcon(MapMarker *source){
+    this->wedgeTarget = source;
+}
+MapMarker* Wedge::getWedgeTargetIcon(){
+    return wedgeTarget;
+}

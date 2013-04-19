@@ -32,5 +32,6 @@
         <file alias="wedgeUndo">Icons/wedgeUndo.png</file>
         <file alias="undoIcon">Icons/undoIcon.png</file>
         <file alias="globalButton">Icons/globalButton.png</file>
+        <file alias="scaleMark">Icons/scaleMark.png</file>
     </qresource>
 </RCC>

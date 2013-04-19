@@ -43,7 +43,8 @@ public:
         WedgePoiType,
         UndoType,
         WedgeUndoType,
-        GlobalButton
+        GlobalButton,
+        ScaleIcon
     };
 
     MapMarker(MapMarker::MarkerType type, QString text = QString(""));

@@ -10,6 +10,7 @@
 #include "networkclient.h"
 #include "zoomslideritem.h"
 #include "globalbutton.h"
+#include "zoomstatusicon.h"
 
 QTM_USE_NAMESPACE
 
@@ -89,6 +90,7 @@ private:
     QGraphicsView* view;
     GlobalButton* globalButton;
     ZoomButtonItem* zoomButton;
+    zoomstatusicon* statusIcon;
 
     QString peerID;
 

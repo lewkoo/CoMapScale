@@ -13,6 +13,7 @@
 #include "zoomslideritem.h"
 #include "zoomstatusitem.h"
 #include "globalbutton.h"
+#include "zoomstatusicon.h"
 
 QTM_USE_NAMESPACE
 
@@ -93,9 +94,11 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     s_slider = new ZoomStatusItem(map, this);//this order here matters
+    s_slider->setVisible(false);
     //m_slider->setMaximum(map->maximumZoomLevel());
     //m_slider->setSliderPosition(map->zoomLevel());
     m_slider = new ZoomSliderItem(map, this);
+    m_slider->setEnabled(false);
 
     connect(m_slider, SIGNAL(sliderPositionChanged()), this, SLOT(adjustSlider()));
 
@@ -107,6 +110,10 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
 
     view->setVisible (true);
     view->setInteractive (true);
+
+    statusIcon = new zoomstatusicon(map,m_slider);
+    statusIcon->setRect(610,102,0,0);
+    scene->addItem(statusIcon);
 
     //Connect to network server
     client.connectToServer();
@@ -212,6 +219,7 @@ void MappingWidget::adjustScale(){
     int temp = abs(m_slider->sliderPosition()-peerScale);
     m_slider->setPageStep(temp);
 
+    statusIcon->setPosition(peerScale);
 
     map->updateWedges();
 
@@ -224,6 +232,8 @@ void MappingWidget::adjustScale(){
 
 void MappingWidget::adjustSlider(){
     adjustScale();
+
+
 
     QGeoBoundingBox viewportBox = map->viewport();
     QGeoCoordinate position = map->center();
@@ -264,6 +274,8 @@ void MappingWidget::processWedgeIconPress(Wedge *source){
     MapMarker *temp = source->getIconType();
     QString clickData = temp->markerToString(temp->getMarkerType());
 
+    QGeoCoordinate tempCoordinate = source->getWedgeTargetIcon()->coordinate();
+
     //create a return wedge icon on the centre
     if(source->getIconType()->getMarkerType() != MapMarker::WedgeUndoType){
 
@@ -276,12 +288,12 @@ void MappingWidget::processWedgeIconPress(Wedge *source){
     addMapMarker(MapMarker::UndoType, map->center());
 
     map->setLastClickedButton(clickData);
-    map->setCenter(map->screenPositionToCoordinate(source->getTarget()));
+    map->setCenter(tempCoordinate);
     map->updateWedges();
 
     }else{
         //hit the undo button
-        map->setCenter(map->screenPositionToCoordinate(source->getTarget()));
+        map->setCenter(tempCoordinate);
         map->updateWedges();
 
         returnMark->getWedge()->clearTheButton(); //removes the rectangle
@@ -326,7 +338,7 @@ void MappingWidget::processGlobalButtonIconPress(){
 void MappingWidget::setPeerScale(qreal peerScaleIn){
    peerScale = peerScaleIn;
 
-   //processWizzyWiz();
+   processWizzyWiz();
 
    //qDebug() << "New scale received: " + (QString::number(peerScale)) + "\n";
 }

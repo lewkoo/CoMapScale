@@ -46,6 +46,9 @@ public:
     void detectCollision(Wedge* otherWedge);
     void paint(QPainter *painter);
 
+    void setWedgeTargetIcon(MapMarker* source);
+    MapMarker* getWedgeTargetIcon();
+
 protected:
     void mousePressEvent (QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
@@ -67,6 +70,7 @@ private:
 
 private:
     MapMarker* wedgeIcon;
+    MapMarker* wedgeTarget;
     MappingWidget* parent;
     QColor colour;
     WedgeIcon* button;

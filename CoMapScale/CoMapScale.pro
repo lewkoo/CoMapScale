@@ -46,7 +46,8 @@ SOURCES += main.cpp \
     zoomslideritem.cpp \
     wedgeicon.cpp \
     zoomstatusitem.cpp \
-    globalbutton.cpp
+    globalbutton.cpp \
+    zoomstatusicon.cpp
 HEADERS += \
     geomap.h \
     mappingwidget.h \
@@ -61,7 +62,8 @@ HEADERS += \
     zoomslideritem.h \
     wedgeicon.h \
     zoomstatusitem.h \
-    globalbutton.h
+    globalbutton.h \
+    zoomstatusicon.h
 FORMS +=
 
 # Please do not modify the following two lines. Required for deployment.

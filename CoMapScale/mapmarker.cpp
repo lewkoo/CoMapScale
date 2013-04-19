@@ -23,6 +23,7 @@ MapMarker::MapMarker(MapMarker::MarkerType type, QString text)
     {
         wedge = new Wedge(getWedgeColour());
         setWedgeIcon(type);
+        wedge->setWedgeTargetIcon(this);
 
     }
     else
@@ -358,6 +359,12 @@ void MapMarker::setMarkerType (MapMarker::MarkerType type)
         filename = ":/Icons/globalButton";
         offset = QPoint(-40,-80);
         scale = 40;
+        this->setZValue(10);
+        break;
+    case ScaleIcon:
+        filename = ":/Icons/scaleMark";
+        offset = QPoint(-40,-80);
+        scale = 55;
         this->setZValue(10);
         break;
 

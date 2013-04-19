@@ -13,6 +13,7 @@ INPUT(
 ./release\wedgeicon.o
 ./release\zoomstatusitem.o
 ./release\globalbutton.o
+./release\zoomstatusicon.o
 ./release\moc_geomap.o
 ./release\moc_mappingwidget.o
 ./release\moc_networkclient.o
