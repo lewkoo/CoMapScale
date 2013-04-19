@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'networkclient.h'
 **
-** Created: Sun Jun 3 17:47:57 2012
+** Created: Fri Apr 19 10:22:06 2013
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,12 +23,12 @@ static const uint qt_meta_data_NetworkClient[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+      18,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       7,       // signalCount
+      14,       // signalCount
 
  // signals: signature, parameters, type, tag, flags
       15,   14,   14,   14, 0x05,
@@ -38,12 +38,19 @@ static const uint qt_meta_data_NetworkClient[] = {
      145,   32,   14,   14, 0x05,
      207,  180,   14,   14, 0x05,
      294,  268,   14,   14, 0x05,
+     324,   14,   14,   14, 0x05,
+     348,  339,   14,   14, 0x05,
+     382,  368,   14,   14, 0x05,
+     426,  416,   14,   14, 0x05,
+     453,  416,   14,   14, 0x05,
+     480,  416,   14,   14, 0x05,
+     502,  416,   14,   14, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-     336,  324,   14,   14, 0x08,
-     379,   14,   14,   14, 0x08,
-     395,   14,   14,   14, 0x08,
-     409,   14,   14,   14, 0x08,
+     544,  532,   14,   14, 0x08,
+     587,   14,   14,   14, 0x08,
+     603,   14,   14,   14, 0x08,
+     617,   14,   14,   14, 0x08,
 
        0        // eod
 };
@@ -58,7 +65,13 @@ static const char qt_meta_stringdata_NetworkClient[] = {
     "markerType,coordinate,text\0"
     "newObjectAdded(MapMarker::MarkerType,QGeoCoordinate,QString)\0"
     "isEnabled,objWedgeEnabled\0"
-    "wedgeStatusChanged(bool,bool)\0socketError\0"
+    "wedgeStatusChanged(bool,bool)\0"
+    "scaleChanged()\0newScale\0newPeerScale(qreal)\0"
+    "newCoordinate\0newPeerCoordinate(QGeoCoordinate)\0"
+    "isEnabled\0togleGlobalButtonSig(bool)\0"
+    "togleStatusSliderSig(bool)\0"
+    "togleWedgeIcons(bool)\0"
+    "togleWedgeInteractivity(bool)\0socketError\0"
     "displayError(QAbstractSocket::SocketError)\0"
     "sessionOpened()\0serverFound()\0"
     "inDataReady()\0"
@@ -100,13 +113,20 @@ int NetworkClient::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 4: newVwAdded((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QGeoCoordinate(*)>(_a[2]))); break;
         case 5: newObjectAdded((*reinterpret_cast< MapMarker::MarkerType(*)>(_a[1])),(*reinterpret_cast< QGeoCoordinate(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3]))); break;
         case 6: wedgeStatusChanged((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
-        case 7: displayError((*reinterpret_cast< QAbstractSocket::SocketError(*)>(_a[1]))); break;
-        case 8: sessionOpened(); break;
-        case 9: serverFound(); break;
-        case 10: inDataReady(); break;
+        case 7: scaleChanged(); break;
+        case 8: newPeerScale((*reinterpret_cast< qreal(*)>(_a[1]))); break;
+        case 9: newPeerCoordinate((*reinterpret_cast< QGeoCoordinate(*)>(_a[1]))); break;
+        case 10: togleGlobalButtonSig((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 11: togleStatusSliderSig((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 12: togleWedgeIcons((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 13: togleWedgeInteractivity((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 14: displayError((*reinterpret_cast< QAbstractSocket::SocketError(*)>(_a[1]))); break;
+        case 15: sessionOpened(); break;
+        case 16: serverFound(); break;
+        case 17: inDataReady(); break;
         default: ;
         }
-        _id -= 11;
+        _id -= 18;
     }
     return _id;
 }
@@ -156,5 +176,53 @@ void NetworkClient::wedgeStatusChanged(bool _t1, bool _t2)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
     QMetaObject::activate(this, &staticMetaObject, 6, _a);
+}
+
+// SIGNAL 7
+void NetworkClient::scaleChanged()
+{
+    QMetaObject::activate(this, &staticMetaObject, 7, 0);
+}
+
+// SIGNAL 8
+void NetworkClient::newPeerScale(qreal _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 8, _a);
+}
+
+// SIGNAL 9
+void NetworkClient::newPeerCoordinate(QGeoCoordinate _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 9, _a);
+}
+
+// SIGNAL 10
+void NetworkClient::togleGlobalButtonSig(bool _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 10, _a);
+}
+
+// SIGNAL 11
+void NetworkClient::togleStatusSliderSig(bool _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 11, _a);
+}
+
+// SIGNAL 12
+void NetworkClient::togleWedgeIcons(bool _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 12, _a);
+}
+
+// SIGNAL 13
+void NetworkClient::togleWedgeInteractivity(bool _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 13, _a);
 }
 QT_END_MOC_NAMESPACE

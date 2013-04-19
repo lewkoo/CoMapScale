@@ -441,7 +441,7 @@ void NetworkClient::connectToServer()
 
 #ifdef Q_WS_MAEMO_5
     //tcpSocket.connectToHost("130.179.30.148", 50000);
-    tcpSocket.connectToHost("192.168.2.14", 50000);
+    tcpSocket.connectToHost("192.168.0.100", 50000);
 #else
     tcpSocket.connectToHost("127.0.0.1", 50000); //For testing on desktop build
 #endif

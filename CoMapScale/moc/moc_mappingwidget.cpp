@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mappingwidget.h'
 **
-** Created: Sun Jun 3 17:47:57 2012
+** Created: Fri Apr 19 10:22:05 2013
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MappingWidget[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+      15,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -38,6 +38,14 @@ static const uint qt_meta_data_MappingWidget[] = {
      168,   58,   14,   14, 0x0a,
      228,  201,   14,   14, 0x0a,
      313,  287,   14,   14, 0x0a,
+     340,   14,   14,   14, 0x0a,
+     354,   14,   14,   14, 0x0a,
+     379,  369,   14,   14, 0x0a,
+     402,  369,   14,   14, 0x0a,
+     425,  369,   14,   14, 0x0a,
+     446,  369,   14,   14, 0x0a,
+     487,  475,   14,   14, 0x0a,
+     525,  507,   14,   14, 0x0a,
 
        0        // eod
 };
@@ -52,7 +60,12 @@ static const char qt_meta_stringdata_MappingWidget[] = {
     "markerType,coordinate,text\0"
     "addNewObject(MapMarker::MarkerType,QGeoCoordinate,QString)\0"
     "isEnabled,objWedgeEnabled\0"
-    "setWedgeEnabled(bool,bool)\0"
+    "setWedgeEnabled(bool,bool)\0adjustScale()\0"
+    "adjustSlider()\0isEnabled\0"
+    "turnGlobalButton(bool)\0turnStatusSlider(bool)\0"
+    "turnWedgeIcons(bool)\0turnWedgeInteractivity(bool)\0"
+    "peerScaleIn\0setPeerScale(qreal)\0"
+    "peerCoordinatesIn\0setPeerCoordinate(QGeoCoordinate)\0"
 };
 
 const QMetaObject MappingWidget::staticMetaObject = {
@@ -91,9 +104,17 @@ int MappingWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 4: addNewVw((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QGeoCoordinate(*)>(_a[2]))); break;
         case 5: addNewObject((*reinterpret_cast< MapMarker::MarkerType(*)>(_a[1])),(*reinterpret_cast< QGeoCoordinate(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3]))); break;
         case 6: setWedgeEnabled((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
+        case 7: adjustScale(); break;
+        case 8: adjustSlider(); break;
+        case 9: turnGlobalButton((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 10: turnStatusSlider((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 11: turnWedgeIcons((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 12: turnWedgeInteractivity((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 13: setPeerScale((*reinterpret_cast< qreal(*)>(_a[1]))); break;
+        case 14: setPeerCoordinate((*reinterpret_cast< QGeoCoordinate(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 7;
+        _id -= 15;
     }
     return _id;
 }
