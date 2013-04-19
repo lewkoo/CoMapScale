@@ -99,14 +99,14 @@ void MapMarker::setWedgeIcon(MapMarker::MarkerType type){
     {
          marker = new MapMarker(MapMarker::WedgeUndoType);
     }
-//    else if (type == MapMarker::HotelType)
-//    {
-//        colour = QColor("green");
-//    }
-//    else if (type == MapMarker::RestaurantType)
-//    {
-//        colour = QColor("cyan");
-//    }
+    else if (type == MapMarker::HotelType)
+    {
+        marker = new MapMarker(MapMarker::WedgeHotelType);
+    }
+    else if (type == MapMarker::RestaurantType)
+    {
+        marker = new MapMarker(MapMarker::WedgeRestaurantType);
+    }
 
     if(marker != NULL){
     wedge->setWedgeIcon(marker);
@@ -468,7 +468,6 @@ QString MapMarker::markerToString(MapMarker::MarkerType type){
         break;
     case GlobalButton:
         filename = "GlobalButton";
-
     default:
         filename = "NOT RECOGNIZED";
         break;

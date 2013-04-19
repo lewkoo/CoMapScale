@@ -28,7 +28,7 @@ bool MappingWidget::wedgeIconsSwitch;
 bool MappingWidget::wedgeInteractivitySwitch;
 
 
-const int MappingWidget::NUM_TEST_MOVES = 1000000000;
+const int MappingWidget::NUM_TEST_MOVES = 1000000000000;
 
 MappingWidget::MappingWidget(QWidget *parent) :
     QWidget(parent)

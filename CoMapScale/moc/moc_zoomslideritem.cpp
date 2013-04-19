@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'zoomslideritem.h'
 **
-** Created: Fri Apr 19 10:22:07 2013
+** Created: Fri Apr 19 12:13:15 2013
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
 **
 ** WARNING! All changes made in this file will be lost!

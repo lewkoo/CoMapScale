@@ -1,0 +1,10 @@
+755 root root . opt /
+755 root root . opt/usr /
+755 root root . opt/usr/bin /
+755 root root . opt/usr/bin/CoMapScale debian/comapovi/opt/usr/bin/CoMapScale
+755 root root . usr /
+755 root root . usr/share /
+755 root root . usr/share/doc /
+755 root root . usr/share/doc/comapovi /
+644 root root . usr/share/doc/comapovi/changelog.gz debian/comapovi/usr/share/doc/comapovi/changelog.gz
+644 root root . usr/share/doc/comapovi/copyright debian/comapovi/usr/share/doc/comapovi/copyright

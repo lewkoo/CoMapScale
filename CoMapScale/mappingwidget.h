@@ -28,6 +28,7 @@ public:
 
     static bool wedgeIconsSwitch;
     static bool wedgeInteractivitySwitch;
+    static const int NUM_TEST_MOVES;
 
 
     static QGraphicsScene* scene;
@@ -102,6 +103,8 @@ private:
     NetworkClient client;
 
     void processWizzyWiz();
+    void runServerLoggingTests();
+    void sleepFor(int timeToWait);
 
 
 };
