@@ -15,8 +15,8 @@ Changes:
  .
    * Initial Release.
 Checksums-Sha1: 
- fa3a26e20a2173dc3fe7ff5fd67c3bb8ec555ec5 875212 comapovi_0.0.1_armel.deb
+ 1fd297bdf67624bdbd219e4a8c46348177941b7d 215270 comapovi_0.0.1_armel.deb
 Checksums-Sha256: 
- 26c65d3efd2bc902f27f04d577bddf1cb4c63e44856687c607d925c0cbc33b97 875212 comapovi_0.0.1_armel.deb
+ fbc809629b4124f995cc18631c0f63a8a2d6a37b15bb89eab511742127b0ec22 215270 comapovi_0.0.1_armel.deb
 Files: 
- 700a7131101f521762ab32a4871dd431 875212 user/hidden optional comapovi_0.0.1_armel.deb
+ ffc30a844ba335d9acf659c0ee5efc78 215270 user/hidden optional comapovi_0.0.1_armel.deb

@@ -249,7 +249,7 @@ void MappingWidget::adjustScale(){
 void MappingWidget::adjustSlider(){
     adjustScale();
 
-    globalButtonPressed = false;
+
 
 
     QGeoBoundingBox viewportBox = map->viewport();

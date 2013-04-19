@@ -28,7 +28,7 @@ build-stamp: configure-stamp
 
 	# Add here commands to compile the package.
 	$(MAKE)
-	#docbook-to-man debian/comapovi.sgml > comapovi.1
+	#docbook-to-man debian/comapscale.sgml > comapovi.1
 
 	touch $@
 
@@ -48,8 +48,8 @@ install: build
 	dh_clean -k 
 	dh_installdirs
 
-	# Add here commands to install the package into debian/comapovi.
-	$(MAKE) INSTALL_ROOT="$(CURDIR)"/debian/comapovi install
+	# Add here commands to install the package into debian/comapscale.
+	$(MAKE) INSTALL_ROOT="$(CURDIR)"/debian/comapscale install
 
 
 # Build architecture-independent files here.
@@ -82,7 +82,6 @@ binary-arch: build install
 #	dh_perl
 #	dh_makeshlibs
 	dh_installdeb
-	dh_shlibdeps                      # Uncomment this line for publishing!
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb

@@ -1,0 +1,22 @@
+Format: 1.8
+Date: Fri, 19 Apr 2013 15:24:48 -0500
+Source: comapscale
+Binary: comapscale
+Architecture: armel
+Version: 1.0.1
+Distribution: unstable
+Urgency: low
+Maintainer: root <root@unknown>
+Changed-By: root <root@unknown>
+Description: 
+ comapscale - <insert up to 60 chars description>
+Changes: 
+ comapscale (1.0.1) unstable; urgency=low
+ .
+   * <Add change description here>
+Checksums-Sha1: 
+ 690dec948e9a277d1545334b81e8e627bf74cfa4 215626 comapscale_1.0.1_armel.deb
+Checksums-Sha256: 
+ 60df49438d034999d5738a8de728e66ce930bf9976e43697ac494f1c7b53d7c5 215626 comapscale_1.0.1_armel.deb
+Files: 
+ 00c21adc1c00ecb6040c5e3b0a6436cd 215626 user/hidden optional comapscale_1.0.1_armel.deb

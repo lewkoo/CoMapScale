@@ -88,3 +88,9 @@ RESOURCES += \
 
 
 
+
+maemo5 {
+    desktopfile.files = CoMapScale.desktop
+    desktopfile.path = /usr/share/applications/hildon
+    INSTALLS += desktopfile
+}
