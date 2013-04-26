@@ -15,8 +15,8 @@ Changes:
  .
    * <Add change description here>
 Checksums-Sha1: 
- 690dec948e9a277d1545334b81e8e627bf74cfa4 215626 comapscale_1.0.1_armel.deb
+ 067d1a958396c784fd1c9dd53a2b9f2622d0f464 218670 comapscale_1.0.1_armel.deb
 Checksums-Sha256: 
- 60df49438d034999d5738a8de728e66ce930bf9976e43697ac494f1c7b53d7c5 215626 comapscale_1.0.1_armel.deb
+ 391f2c69cf661ea875ed68795a6f7d2c74a5afd639070f8ddfe75ab0918f014b 218670 comapscale_1.0.1_armel.deb
 Files: 
- 00c21adc1c00ecb6040c5e3b0a6436cd 215626 user/hidden optional comapscale_1.0.1_armel.deb
+ de44800882e829d2c09e1887c3c6e5f3 218670 user/hidden optional comapscale_1.0.1_armel.deb

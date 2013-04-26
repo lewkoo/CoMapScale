@@ -122,9 +122,7 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
     view->setVisible (true);
     view->setInteractive (true);
 
-    statusIcon = new zoomstatusicon(map,m_slider);
-    statusIcon->setRect(610,102,0,0);
-    scene->addItem(statusIcon);
+
 
     //Connect to network server
     client.connectToServer();
@@ -134,8 +132,8 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
 
     //Test
     //addMapMarker(MapMarker::HotelType, QGeoCoordinate(48.854885, 2.346611));
-    addMapMarker(MapMarker::PoiType, QGeoCoordinate(48.954885, 2.34661));
-    addMapMarker(MapMarker::AnchorType, QGeoCoordinate(48.754885, 2.34661));
+    //addMapMarker(MapMarker::PoiType, QGeoCoordinate(48.954885, 2.34661));
+    //addMapMarker(MapMarker::AnchorType, QGeoCoordinate(48.754885, 2.34661));
 
 
     //runServerLoggingTests();
@@ -217,6 +215,10 @@ void MappingWidget::addNewPeer(QString peerId, QGeoCoordinate coordinate)
     globalButton = new GlobalButton(map, peerID, this);
     globalButton->setRect(660,37,50,35);
     scene->addItem(globalButton);
+
+    statusIcon = new zoomstatusicon(map,m_slider, peerID);
+    statusIcon->setRect(610,102,0,0);
+    scene->addItem(statusIcon);
 
     map->updateWedges();
 }

@@ -14,7 +14,7 @@ class ZoomSliderItem;
 class zoomstatusicon : public QGraphicsPixmapItem
 {
 public:
-    explicit zoomstatusicon(GeoMap* map, ZoomSliderItem* slider);
+    explicit zoomstatusicon(GeoMap* map, ZoomSliderItem* slider, QString peerID);
     void setRect(qreal x, qreal y, qreal width, qreal height);
 
     void setPosition(int newPosition);

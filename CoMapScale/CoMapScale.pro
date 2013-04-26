@@ -94,3 +94,9 @@ maemo5 {
     desktopfile.path = /usr/share/applications/hildon
     INSTALLS += desktopfile
 }
+
+maemo5 {
+    icon.files = CoMapScale.png
+    icon.path = /usr/share/icons/hicolor/64x64/apps
+    INSTALLS += icon
+}

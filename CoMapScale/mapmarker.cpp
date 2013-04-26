@@ -362,7 +362,19 @@ void MapMarker::setMarkerType (MapMarker::MarkerType type)
         this->setZValue(10);
         break;
     case ScaleIcon:
-        filename = ":/Icons/scaleMark";
+        filename = ":/Icons/scaleMarkRed";
+        offset = QPoint(-40,-80);
+        scale = 55;
+        this->setZValue(10);
+        break;
+    case ScaleIconRed:
+        filename = ":/Icons/scaleMarkRed";
+        offset = QPoint(-40,-80);
+        scale = 55;
+        this->setZValue(10);
+        break;
+    case ScaleIconBlue:
+        filename = ":/Icons/scaleMarkBlue";
         offset = QPoint(-40,-80);
         scale = 55;
         this->setZValue(10);
@@ -468,6 +480,10 @@ QString MapMarker::markerToString(MapMarker::MarkerType type){
         break;
     case GlobalButton:
         filename = "GlobalButton";
+    case ScaleIconRed:
+        filename = "ScaleIcon";
+    case ScaleIconBlue:
+        filename = "ScaleIcon";
     default:
         filename = "NOT RECOGNIZED";
         break;

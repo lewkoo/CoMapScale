@@ -5,16 +5,28 @@
 #include "mappingwidget.h"
 
 
-zoomstatusicon::zoomstatusicon(GeoMap* map, ZoomSliderItem* slider):
+zoomstatusicon::zoomstatusicon(GeoMap* map, ZoomSliderItem* slider, QString peerID ):
     QGraphicsPixmapItem()
 {
     this->map = map;
     this->slider = slider;
 
     MapMarker::MarkerType type = MapMarker::ScaleIcon;
+
+    if(peerID == "0"){
+        type = MapMarker::ScaleIconRed;
+    }else if (peerID == "1"){
+        type = MapMarker::ScaleIconBlue;
+    }else{
+        type = MapMarker::ScaleIcon;
+    }
+
+
     scaleIcon = new MapMarker(type,"");
 
     scalePressed = false;
+
+
 
     this->setPixmap(scaleIcon->pixmap());
     this->setVisible(false);
