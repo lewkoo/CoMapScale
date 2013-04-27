@@ -5,11 +5,12 @@
 #include "mappingwidget.h"
 
 
-zoomstatusicon::zoomstatusicon(GeoMap* map, ZoomSliderItem* slider, QString peerID ):
+zoomstatusicon::zoomstatusicon(GeoMap* map, ZoomSliderItem* slider, QString peerID, MappingWidget* parent ):
     QGraphicsPixmapItem()
 {
     this->map = map;
     this->slider = slider;
+    this->parent = parent;
 
     MapMarker::MarkerType type = MapMarker::ScaleIcon;
 
@@ -32,9 +33,29 @@ zoomstatusicon::zoomstatusicon(GeoMap* map, ZoomSliderItem* slider, QString peer
     this->setVisible(false);
 }
 
+void zoomstatusicon::setPeerID(QString peerID){
+    MapMarker::MarkerType type = MapMarker::ScaleIcon;
+
+    if(peerID == "0"){
+        type = MapMarker::ScaleIconRed;
+    }else if (peerID == "1"){
+        type = MapMarker::ScaleIconBlue;
+    }else{
+        type = MapMarker::ScaleIcon;
+    }
+
+
+    scaleIcon = new MapMarker(type,"");
+
+    scalePressed = false;
+
+
+
+    this->setPixmap(scaleIcon->pixmap());
+}
+
 void zoomstatusicon::setRect(qreal x, qreal y, qreal width, qreal height){
     setPos(x,y);
-    setVisible(true);
 }
 
 bool zoomstatusicon::isPressed(const QPointF &point){
@@ -64,7 +85,7 @@ void zoomstatusicon::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
     if (isPressed(pos) && scalePressed)
     {
         //adjust the scale and locaitons smoothly
-        //parent->processGlobalButtonIconPress();
+        parent->processZoomStatusButtonPress();
         slider->valueChanged(currPosition);
 
     }

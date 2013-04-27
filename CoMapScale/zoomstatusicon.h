@@ -5,17 +5,18 @@
 #include <QGraphicsPixmapItem>
 #include "mapmarker.h"
 
-
 class ZoomButtonItemPimpl;
 class QGraphicsSceneMouseEvent;
 class GeoMap;
 class ZoomSliderItem;
+class MappingWidget;
 
 class zoomstatusicon : public QGraphicsPixmapItem
 {
 public:
-    explicit zoomstatusicon(GeoMap* map, ZoomSliderItem* slider, QString peerID);
+    explicit zoomstatusicon(GeoMap* map, ZoomSliderItem* slider, QString peerID, MappingWidget* parent);
     void setRect(qreal x, qreal y, qreal width, qreal height);
+    void setPeerID(QString peerID);
 
     void setPosition(int newPosition);
     //void setType(QString peerID);
@@ -25,13 +26,13 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 signals:
-    void zoomButtonPressed();
 
 private:
     bool isPressed (const QPointF &point);
 
 private:
     GeoMap* map;
+    MappingWidget* parent;
     MapMarker* scaleIcon;
     ZoomSliderItem* slider;
     QString peerID;

@@ -42,6 +42,7 @@ public:
     static QGraphicsScene *getScene();
     void processWedgeIconPress(Wedge* source);
     void processGlobalButtonIconPress();
+    void processZoomStatusButtonPress();
 
     void mapPositionChanged();
     void mapPositionChangedWithClick(QString clickData);
@@ -77,6 +78,7 @@ public slots:
 
     void setPeerScale(qreal peerScaleIn);
     void setPeerCoordinate(QGeoCoordinate peerCoordinatesIn);
+
 
 
 

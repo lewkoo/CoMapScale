@@ -76,6 +76,8 @@ void MappingWidget::closeEvent(QCloseEvent * event)
 void MappingWidget::initialize(QGeoMappingManager *mapManager)
 {
 
+    globalButton = NULL;
+    statusIcon = NULL;
 
     QRect viewportRect(0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
     map = new GeoMap (mapManager, this);
@@ -107,10 +109,6 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
     m_slider->setMouseTracking(false);
     m_slider->setTracking(false);
 
-
-
-
-
     connect(m_slider, SIGNAL(sliderPositionChanged()), this, SLOT(adjustSlider()));
 
 
@@ -122,6 +120,13 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
     view->setVisible (true);
     view->setInteractive (true);
 
+    globalButton = new GlobalButton(map, "0", this);
+    globalButton->setRect(660,37,50,35);
+    scene->addItem(globalButton);
+
+    statusIcon = new zoomstatusicon(map,m_slider, "peerID", this);
+    statusIcon->setRect(610,102,0,0);
+    scene->addItem(statusIcon);
 
 
     //Connect to network server
@@ -212,13 +217,11 @@ void MappingWidget::addNewPeer(QString peerId, QGeoCoordinate coordinate)
     client.setPeerMarker(peerId, peerMarker);
     this->peerID = peerId;
 
-    globalButton = new GlobalButton(map, peerID, this);
-    globalButton->setRect(660,37,50,35);
-    scene->addItem(globalButton);
 
-    statusIcon = new zoomstatusicon(map,m_slider, peerID);
-    statusIcon->setRect(610,102,0,0);
-    scene->addItem(statusIcon);
+    statusIcon->setPeerID(peerID);
+
+
+
 
     map->updateWedges();
 }
@@ -337,6 +340,13 @@ void MappingWidget::processGlobalButtonIconPress(){
         adjustSlider();
         globalButton->setToUndo();
         globalButtonPressed = true;
+
+        //send click data
+
+
+
+        QString clickData = "GlobalButton";
+        mapPositionChangedWithClick(clickData);
     }else{
 
         map->setCenter(currLocation);
@@ -346,6 +356,9 @@ void MappingWidget::processGlobalButtonIconPress(){
 
         globalButton->setToPeerIcon();
         globalButtonPressed = false;
+
+        QString clickData = "GlobalButton";
+        mapPositionChangedWithClick(clickData);
     }
 
 
@@ -373,14 +386,20 @@ void MappingWidget::setPeerCoordinate(QGeoCoordinate peerCoordinatesIn){
 
 
 void MappingWidget::turnGlobalButton(bool isEnabled){
+
+    if(globalButton != NULL){
+
     if(isEnabled == false){
     globalButton->setVisible(false);
     }else{
         globalButton->setVisible(true);
     }
+    }
 }
 
 void MappingWidget::turnStatusSlider(bool isEnabled){
+
+
     if(isEnabled == false){
     s_slider->setVisible(false);
     statusIcon->setVisible(false);
@@ -388,6 +407,7 @@ void MappingWidget::turnStatusSlider(bool isEnabled){
         //s_slider->setVisible(true);
         statusIcon->setVisible(true);
     }
+
 }
 
 void MappingWidget::turnWedgeIcons(bool isEnabled){
@@ -465,4 +485,9 @@ void MappingWidget::sleepFor(int timeToWait){
         QEventLoop loop;
         connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
         loop.exec();
+}
+
+void MappingWidget::processZoomStatusButtonPress(){
+    QString clickData = "SliderButton";
+    mapPositionChangedWithClick(clickData);
 }
