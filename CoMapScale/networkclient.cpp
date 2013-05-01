@@ -260,18 +260,18 @@ void NetworkClient::parseMessage(QString message)
                 statusSliderEnabled = true;
             }
         }else if(pair.startsWith("noiconswedge") || pair.startsWith("iconswedge")){
-            if(wedgeIconsEnabled == true){
+            if(pair.startsWith("noiconswedge")){
                 emit togleWedgeIcons(false);
                 wedgeIconsEnabled = false;
-            }else{
+            }else if(pair.startsWith("iconswedge")){
                 emit togleWedgeIcons(true);
                 wedgeIconsEnabled = true;
             }
         }else if(pair.startsWith("nopresseswedge") || pair.startsWith("presseswedge")){
-            if(wedgePressesEnabled == true){
+            if(pair.startsWith("nopresseswedge")){
                emit togleWedgeInteractivity(false);
                 wedgePressesEnabled = false;
-            }else{
+            }else if (pair.startsWith("presseswedge")){
                 emit togleWedgeInteractivity(true);
                 wedgePressesEnabled = true;
             }
