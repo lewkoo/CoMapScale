@@ -27,10 +27,10 @@ zoomstatusicon::zoomstatusicon(GeoMap* map, ZoomSliderItem* slider, QString peer
 
     scalePressed = false;
 
+    isInteractive = true; //can be pressed by default
 
 
     this->setPixmap(scaleIcon->pixmap());
-    this->setVisible(false);
 }
 
 void zoomstatusicon::setPeerID(QString peerID){
@@ -52,6 +52,7 @@ void zoomstatusicon::setPeerID(QString peerID){
 
 
     this->setPixmap(scaleIcon->pixmap());
+    this->setVisible(false);
 }
 
 void zoomstatusicon::setRect(qreal x, qreal y, qreal width, qreal height){
@@ -72,7 +73,7 @@ bool zoomstatusicon::isPressed(const QPointF &point){
 void zoomstatusicon::mousePressEvent(QGraphicsSceneMouseEvent *event){
     const QPointF pos = event->pos();
 
-        if (isPressed(pos))
+        if (isPressed(pos) && isInteractive)
         {
             scalePressed = true;
         }
@@ -82,7 +83,7 @@ void zoomstatusicon::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
 void zoomstatusicon::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
     const QPointF pos = event->pos();
-    if (isPressed(pos) && scalePressed)
+    if (isPressed(pos) && scalePressed && isInteractive)
     {
         //adjust the scale and locaitons smoothly
         parent->processZoomStatusButtonPress();
@@ -95,7 +96,10 @@ void zoomstatusicon::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
 
 void zoomstatusicon::setPosition(int newPosition){
     currPosition = newPosition;
-    setVisible(true);
+    if(parent->sliderStatusEnabled == true){
+        setVisible(true);
+    }
+
 
     switch(newPosition){
     case 18:
@@ -160,4 +164,8 @@ void zoomstatusicon::setPosition(int newPosition){
 
 
     //updateIconPosition(currPosition); //private method
+}
+
+void zoomstatusicon::setInteractivity(bool isEnabled){
+    isInteractive = isEnabled;
 }

@@ -19,6 +19,7 @@ public:
     void setPeerID(QString peerID);
 
     void setPosition(int newPosition);
+    void setInteractivity(bool isEnabled);
     //void setType(QString peerID);
 
 protected:
@@ -43,6 +44,7 @@ private:
     QGraphicsSimpleTextItem *minusText;
 
     bool scalePressed;
+    bool isInteractive;
 };
 
 

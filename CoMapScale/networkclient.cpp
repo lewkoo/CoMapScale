@@ -243,19 +243,19 @@ void NetworkClient::parseMessage(QString message)
             iconText = pair.remove(0, 4);
         }else if (pair.startsWith("noglobal") || pair.startsWith("global")){
             //turn off global stuff in Mapping Widget
-            if(globalEnabled == true){
+            if(pair.startsWith("noglobal")){
                 emit togleGlobalButtonSig(false);
                 globalEnabled = false;
-            }else{
+            }else if (pair.startsWith("global")){
                 emit togleGlobalButtonSig(true);
                 globalEnabled = true;
             }
 
         }else if (pair.startsWith("nostatusslider") || pair.startsWith("statusslider")){
-            if(statusSliderEnabled == true){
+            if(pair.startsWith("nostatusslider")){
                 emit togleStatusSliderSig(false);
                 statusSliderEnabled = false;
-            }else{
+            }else if(pair.startsWith("statusslider")){
                 emit togleStatusSliderSig(true);
                 statusSliderEnabled = true;
             }
@@ -275,9 +275,15 @@ void NetworkClient::parseMessage(QString message)
                 emit togleWedgeInteractivity(true);
                 wedgePressesEnabled = true;
             }
+        }else if(pair.startsWith("interactivitynostatusslider") || pair.startsWith("interactivitystatusslider")){
+            if(pair.startsWith("interactivitynostatusslider")){
+                emit togleSliderStatusInteractivity(false);
+            }else if(pair.startsWith("interactivitystatusslider")){
+                emit togleSliderStatusInteractivity(true);
+            }
         }
         else{
-            //qDebug() << "Unrecognized message element: " << pair;
+            qDebug() << "Unrecognized message element: " << pair;
         }
     }
 

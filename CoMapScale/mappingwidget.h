@@ -50,6 +50,8 @@ public:
     bool isGlobalButtonPressed();
     void resetWizzyWizMode();
 
+    bool sliderStatusEnabled;
+
 
     MapMarker* addMapMarker(MapMarker::MarkerType markerType, QGeoCoordinate location);
     MapMarker* addMapMarker(MapMarker::MarkerType markerType, QGeoCoordinate location, QString text);
@@ -73,6 +75,7 @@ public slots:
 
     void turnGlobalButton(bool isEnabled);
     void turnStatusSlider(bool isEnabled);
+    void turnStatusSliderInteractivity(bool isEnabled);
     void turnWedgeIcons(bool isEnabled);
     void turnWedgeInteractivity(bool isEnabled);
 
@@ -101,6 +104,11 @@ private:
     bool globalButtonPressed;
     QGeoCoordinate currLocation;
     qreal currScale;
+
+    //switches
+    bool globalButtonEnabled;
+
+    bool sliderStatusInteractivityEnabled;
 
     NetworkClient client;
 

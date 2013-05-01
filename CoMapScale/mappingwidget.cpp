@@ -38,6 +38,10 @@ MappingWidget::MappingWidget(QWidget *parent) :
     globalButtonPressed = false;
     wedgeIconsSwitch = true;
     wedgeInteractivitySwitch = true;
+    globalButtonEnabled = false;
+    sliderStatusEnabled = false;
+    sliderStatusInteractivityEnabled = false;
+
 
     connect(&client, SIGNAL(requestRepaint()), this, SLOT(repaint()));
     connect(&client, SIGNAL(newPeerAdded(QString, QGeoCoordinate)), this, SLOT(addNewPeer(QString, QGeoCoordinate)));
@@ -52,10 +56,11 @@ MappingWidget::MappingWidget(QWidget *parent) :
     connect(&client, SIGNAL(newPeerCoordinate(QGeoCoordinate)), this, SLOT(setPeerCoordinate(QGeoCoordinate)));
 
 
-    connect(&client,SIGNAL(togleGlobalButtonSig(bool)), this, SLOT(turnGlobalButton(bool)));
+    connect(&client, SIGNAL(togleGlobalButtonSig(bool)), this, SLOT(turnGlobalButton(bool)));
     connect(&client, SIGNAL(togleStatusSliderSig(bool)),this,SLOT(turnStatusSlider(bool)));
     connect(&client, SIGNAL(togleWedgeIcons(bool)), this, SLOT(turnWedgeIcons(bool)));
     connect(&client, SIGNAL(togleWedgeInteractivity(bool)), this, SLOT(turnWedgeInteractivity(bool)));
+    connect(&client, SIGNAL(togleSliderStatusInteractivity(bool)),this,SLOT(turnStatusSliderInteractivity(bool)));
 
 }
 
@@ -121,11 +126,13 @@ void MappingWidget::initialize(QGeoMappingManager *mapManager)
     view->setInteractive (true);
 
     globalButton = new GlobalButton(map, "0", this);
+    globalButton->setVisible(false);
     globalButton->setRect(660,37,50,35);
     scene->addItem(globalButton);
 
     statusIcon = new zoomstatusicon(map,m_slider, "peerID", this);
     statusIcon->setRect(610,102,0,0);
+    statusIcon->setVisible(false);
     scene->addItem(statusIcon);
 
 
@@ -217,8 +224,13 @@ void MappingWidget::addNewPeer(QString peerId, QGeoCoordinate coordinate)
     client.setPeerMarker(peerId, peerMarker);
     this->peerID = peerId;
 
+    if(globalButtonEnabled == true)
+    globalButton->setVisible(true);
 
-    statusIcon->setPeerID(peerID);
+    if(sliderStatusEnabled == true){
+        statusIcon->setPeerID(peerID);
+        statusIcon->setVisible(true);
+    }
 
 
 
@@ -386,28 +398,12 @@ void MappingWidget::setPeerCoordinate(QGeoCoordinate peerCoordinatesIn){
 
 
 void MappingWidget::turnGlobalButton(bool isEnabled){
-
-    if(globalButton != NULL){
-
-    if(isEnabled == false){
-    globalButton->setVisible(false);
-    }else{
-        globalButton->setVisible(true);
-    }
-    }
+    globalButtonEnabled = isEnabled;
 }
 
 void MappingWidget::turnStatusSlider(bool isEnabled){
-
-
-    if(isEnabled == false){
-    s_slider->setVisible(false);
-    statusIcon->setVisible(false);
-    }else{
-        //s_slider->setVisible(true);
-        statusIcon->setVisible(true);
-    }
-
+    sliderStatusEnabled = isEnabled;
+    sliderStatusInteractivityEnabled = isEnabled;//can't have interactivity without the button
 }
 
 void MappingWidget::turnWedgeIcons(bool isEnabled){
@@ -490,4 +486,8 @@ void MappingWidget::sleepFor(int timeToWait){
 void MappingWidget::processZoomStatusButtonPress(){
     QString clickData = "SliderButton";
     mapPositionChangedWithClick(clickData);
+}
+
+void MappingWidget::turnStatusSliderInteractivity(bool isEnabled){
+    statusIcon->setInteractivity(isEnabled);
 }

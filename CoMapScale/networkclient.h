@@ -47,6 +47,7 @@ signals:
     void togleStatusSliderSig(bool isEnabled);
     void togleWedgeIcons(bool isEnabled);
     void togleWedgeInteractivity(bool isEnabled);
+    void togleSliderStatusInteractivity(bool isEnabled);
 
 private slots:
     void displayError(QAbstractSocket::SocketError socketError);
